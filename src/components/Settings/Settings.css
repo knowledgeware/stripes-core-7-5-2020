@@ -1,0 +1,6 @@
+@import "@folio/stripes-components/lib/variables";
+
+.panePlaceholder {
+  background-color: var(--color-fill);
+  flex: 1;
+}
