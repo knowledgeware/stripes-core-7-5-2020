@@ -4,7 +4,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Headline from '@folio/stripes-components/lib/Headline';
 import NavButton from '../NavButton';
 import css from './CurrentApp.css';
@@ -33,7 +33,7 @@ const propTypes = {
 
 const CurrentApp = ({ config, currentApp, id, intl, badge }) => {
   const actualCurrentApp = currentApp || {
-    displayName: config.platformName || 'FOLIO',
+    displayName: config.platformName || <FormattedMessage id="stripes-core.defualtFolio.home.name" />,
     description: config.platformDescription || 'FOLIO platform',
   };
 

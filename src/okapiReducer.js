@@ -10,6 +10,10 @@ export default function okapiReducer(state = {}, action) {
       return Object.assign({}, state, { locale: action.locale });
     case 'SET_TIMEZONE':
       return Object.assign({}, state, { timezone: action.timezone });
+    case 'SET_USERNUMBERSSHAPE':
+      return Object.assign({}, state, { userNumbersShape: action.userNumbersShape });
+    case 'SET_DATEFORMAT':
+      return Object.assign({}, state, { dateformat: action.dateformat });
     case 'SET_CURRENCY':
       return Object.assign({}, state, { currency: action.currency });
     case 'SET_PLUGINS':
@@ -40,6 +44,12 @@ export default function okapiReducer(state = {}, action) {
       return { ...state, currentUser: { ...state.currentUser, curServicePoint: action.servicePoint } };
     case 'SET_USER_SERVICE_POINTS':
       return { ...state, currentUser: { ...state.currentUser, servicePoints: action.servicePoints } };
+    case 'SET_USER_LOCALES':
+      return Object.assign({}, state, { userLocales: action.userLocales });
+    case 'SET_USER_PREFERRED_LOCALE':
+      return Object.assign({}, state, { userPreferredLocale: action.userPreferredLocale });
+    case 'SET_TENANT_DEFAULT_LOCALE':
+      return Object.assign({}, state, { tenantDefaultLocale: action.tenantDefaultLocale });
     default:
       return state;
   }

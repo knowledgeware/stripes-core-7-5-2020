@@ -158,6 +158,29 @@ class ProfileDropdown extends Component {
     this.navigateByUrl({ route: '/' });
   };
 
+  onShowCurrentUserProfile = () => {
+    const user = this.getUserData();
+    this.navigateByUrl({ route: `/users/view/${user.id}?query=${user.id}&sort=name` });
+    this.toggleDropdown();
+  }
+
+  renderMyProfileButton = () => {
+    return (
+      <div>
+        <hr className={css.divider} />
+        <NavListItem id="clickable-show-curUser" type="button" onClick={this.onShowCurrentUserProfile}>
+          <Icon
+            icon="profile"
+            iconPosition="start"
+          >
+            <FormattedMessage id="stripes-core.ul.button.show.CurUserProfile" />
+          </Icon>
+        </NavListItem>
+        {/* <hr className={css.divider} /> */}
+      </div>
+    );
+  }
+
   getDropdownContent() {
     const { stripes, onLogout } = this.props;
     const user = this.getUserData();
@@ -205,7 +228,7 @@ class ProfileDropdown extends Component {
               <FormattedMessage id="stripes-core.currentServicePointNotSelected" />
           }
         </div>
-        <hr className={css.divider} />
+        {this.renderMyProfileButton()}
         <NavList>
           <NavListSection>
             {
@@ -273,6 +296,7 @@ class ProfileDropdown extends Component {
           placement="bottom-end"
           relativePosition
           usePortal={false}
+          focusHandlers={{ open: () => null }}
         />
       </>
     );

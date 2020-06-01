@@ -25,6 +25,20 @@ function setLocale(locale) {
   };
 }
 
+function setUserNumbersShape(userNumbersShape) {
+  return {
+    type: 'SET_USERNUMBERSSHAPE',
+    userNumbersShape,
+  };
+}
+
+function setDateformat(dateformat) {
+  return {
+    type: 'SET_DATEFORMAT',
+    dateformat,
+  };
+}
+
 function setTimezone(timezone) {
   return {
     type: 'SET_TIMEZONE',
@@ -128,11 +142,34 @@ function setUserServicePoints(servicePoints) {
   };
 }
 
+function setUserLocales(userLocales) {
+  return {
+    type: 'SET_USER_LOCALES',
+    userLocales,
+  };
+}
+
+function setUserPreferredLocale(userPreferredLocale) {
+  return {
+    type: 'SET_USER_PREFERRED_LOCALE',
+    userPreferredLocale,
+  };
+}
+
+function setTenantDefaultLocale(tenantDefaultLocale) {
+  return {
+    type: 'SET_TENANT_DEFAULT_LOCALE',
+    tenantDefaultLocale,
+  };
+}
+
 export {
   setCurrentUser,
   clearCurrentUser,
   setCurrentPerms,
   setLocale,
+  setUserNumbersShape,
+  setDateformat,
   setTimezone,
   setCurrency,
   setPlugins,
@@ -147,5 +184,8 @@ export {
   setServerDown,
   setSessionData,
   setCurrentServicePoint,
-  setUserServicePoints
+  setUserServicePoints,
+  setUserLocales,
+  setUserPreferredLocale,
+  setTenantDefaultLocale
 };

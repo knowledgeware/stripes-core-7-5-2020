@@ -11,6 +11,8 @@ import {
   setCurrentPerms,
   setLocale,
   setTimezone,
+  setUserNumbersShape,
+  setDateformat,
   setCurrency,
   setPlugins,
   setBindings,
@@ -23,6 +25,9 @@ import {
   setSessionData,
   setCurrentServicePoint,
   setUserServicePoints,
+  setUserLocales,
+  setUserPreferredLocale,
+  setTenantDefaultLocale
 } from './okapiActions';
 import processBadResponse from './processBadResponse';
 
@@ -36,7 +41,6 @@ function getHeaders(tenant, token) {
 
 export function loadTranslations(store, locale, defaultTranslations = {}) {
   const parentLocale = locale.split('-')[0];
-
   // react-intl provides things like pt-BR.
   // lokalise provides things like pt_BR.
   // so we have to translate '-' to '_' because the translation libraries
@@ -68,8 +72,40 @@ export function loadTranslations(store, locale, defaultTranslations = {}) {
     .then((response) => {
       if (response.ok) {
         response.json().then((stripesTranslations) => {
-          store.dispatch(setTranslations(Object.assign(stripesTranslations, defaultTranslations)));
-          store.dispatch(setLocale(locale));
+          if (store.getState().okapi.token !== undefined) {
+            fetch(`${store.getState().okapi.url}/locales?limit=1000`,
+              { headers: getHeaders(store.getState().okapi.tenant, store.getState().okapi.token) })
+              .then((locales) => {
+                if (locales.status === 200) {
+                  locales.json().then((loc) => {
+                    if (loc.locales.length) {
+                      const currLocaleDateFormat = loc.locales.filter(curId => curId.value === locale).map(format => format.defaultDateFormat);
+                      fetch(`${store.getState().okapi.url}/libTranslations?query=(localeValue==${locale})`,
+                        { headers: getHeaders(store.getState().okapi.tenant, store.getState().okapi.token) })
+                        .then((translation) => {
+                          if (translation.status === 200) {
+                            translation.json().then((trans) => {
+                              const policiesTranslations = trans.libTranslations.map(id => id.masseges);
+                              if (policiesTranslations && policiesTranslations[0] !== undefined && policiesTranslations[0][0] !== undefined) {
+                                store.dispatch(setTranslations(Object.assign(stripesTranslations, defaultTranslations, policiesTranslations[0][0])));
+                                store.dispatch(setLocale(locale));
+                                store.dispatch(setDateformat(currLocaleDateFormat[0]));
+                              } else {
+                                store.dispatch(setTranslations(Object.assign(stripesTranslations, defaultTranslations)));
+                                store.dispatch(setLocale(locale));
+                                store.dispatch(setDateformat(currLocaleDateFormat[0]));
+                              }
+                            });
+                          }
+                        });
+                    }
+                  });
+                }
+              });
+          } else {
+            store.dispatch(setTranslations(Object.assign(stripesTranslations, defaultTranslations)));
+            store.dispatch(setLocale(locale));
+          }
         });
       }
     });
@@ -84,11 +120,59 @@ export function getLocale(okapiUrl, store, tenant) {
           if (json.configs.length) {
             const localeValues = JSON.parse(json.configs[0].value);
             const { locale, timezone, currency } = localeValues;
-            if (locale) {
-              loadTranslations(store, locale);
-            }
+            if (locale) store.dispatch(setTenantDefaultLocale(locale));
             if (timezone) store.dispatch(setTimezone(timezone));
             if (currency) store.dispatch(setCurrency(currency));
+          }
+        });
+      }
+    });
+
+  fetch(`${okapiUrl}/userLocales?query=(userId==${store.getState().okapi.currentUser.id})`,
+    { headers: getHeaders(tenant, store.getState().okapi.token) })
+    .then((userlocale) => {
+      if (userlocale.status === 200) {
+        userlocale.json().then((userLoc) => {
+          if (userLoc.userLocales.length) {
+            fetch(`${okapiUrl}/locales?limit=1000`,
+              { headers: getHeaders(tenant, store.getState().okapi.token) })
+              .then((locales) => {
+                if (locales.status === 200) {
+                  locales.json().then((loc) => {
+                    if (loc.locales.length) {
+                      const userLocales = userLoc.userLocales[0].localesIds
+                        .map(uul => loc.locales.find(ul => ul.id === uul));
+
+                      store.dispatch(setUserLocales(userLocales));
+                      store.dispatch(setUserNumbersShape(userLoc.userLocales[0].numbersShape));
+
+                      const UserprefferdLocale = userLoc.userLocales
+                        .map(uul => userLocales.find(ul => ul.id === uul.defaultUserLocaleId));
+
+                      if (UserprefferdLocale && UserprefferdLocale[0] !== undefined) {
+                        loadTranslations(store, UserprefferdLocale[0].value);
+                        store.dispatch(setUserPreferredLocale(UserprefferdLocale[0].value));
+                      } else {
+                        fetch(`${okapiUrl}/configurations/entries?query=(module=ORG and configName=localeSettings)`,
+                          { headers: getHeaders(tenant, store.getState().okapi.token) })
+                          .then((response) => {
+                            if (response.status === 200) {
+                              response.json().then((json) => {
+                                if (json.configs.length) {
+                                  const localeValues = JSON.parse(json.configs[0].value);
+                                  const { locale } = localeValues;
+                                  if (locale) {
+                                    loadTranslations(store, locale);
+                                  }
+                                }
+                              });
+                            }
+                          });
+                      }
+                    }
+                  });
+                }
+              });
           }
         });
       }

@@ -6,6 +6,7 @@ import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import { withRouter } from 'react-router';
 import localforage from 'localforage';
 
+import { Button, Icon } from '@folio/stripes-components';
 import { withModules } from '../Modules';
 import { LastVisitedContext } from '../LastVisited';
 import { clearOkapiToken, clearCurrentUser } from '../../okapiActions';
@@ -26,6 +27,8 @@ import AppList from './AppList';
 import { SkipLink } from './components';
 
 import settingsIcon from './settings.svg';
+import MainNavSettingsIcon from './MainNavSettingsIcon.png';
+import UserLocalesSwitcher from './UserLocalesSwitcher/UserLocalesSwitcher';
 
 class MainNav extends Component {
   static propTypes = {
@@ -183,6 +186,14 @@ class MainNav extends Component {
     return apps;
   }
 
+  navigateByUrl(link) {
+    this.props.history.push(link.route);
+  }
+
+  settingsButtonClick = () => {
+    this.navigateByUrl({ route: '/settings' });
+  }
+
   render() {
     const { stripes } = this.props;
 
@@ -206,6 +217,16 @@ class MainNav extends Component {
                   apps={apps}
                   selectedApp={selectedApp}
                   dropdownToggleId="app-list-dropdown-toggle"
+                />
+                <NavDivider md="hide" />
+                <div>
+                  <Button buttonStyle="dropdownItem" onClick={this.settingsButtonClick}>
+                    <img src={MainNavSettingsIcon} alt="MainNavSettingsIcon" />
+                  </Button>
+                </div>
+                <NavDivider md="hide" />
+                <UserLocalesSwitcher
+                  stripes={stripes}
                 />
                 <NavDivider md="hide" />
                 <ProfileDropdown

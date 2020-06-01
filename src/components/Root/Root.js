@@ -17,7 +17,7 @@ import { ConnectContext } from '@folio/stripes-connect';
 import initialReducers from '../../initialReducers';
 import enhanceReducer from '../../enhanceReducer';
 import createApolloClient from '../../createApolloClient';
-import { setSinglePlugin, setBindings, setOkapiToken, setTimezone, setCurrency } from '../../okapiActions';
+import { setSinglePlugin, setBindings, setOkapiToken, setTimezone, setCurrency, setUserNumbersShape, setDateformat, setUserLocales, setUserPreferredLocale, setTenantDefaultLocale, setTranslations } from '../../okapiActions';
 import { loadTranslations, checkOkapiSession } from '../../loginServices';
 import { getQueryResourceKey, getCurrentModule } from '../../locationService';
 import Stripes from '../../Stripes';
@@ -86,8 +86,7 @@ class Root extends Component {
   }
 
   render() {
-    const { logger, store, epics, config, okapi, actionNames, token, disableAuth, currentUser, currentPerms, locale, defaultTranslations, timezone, currency, plugins, bindings, discovery, translations, history, serverDown } = this.props;
-
+    const { logger, store, epics, config, okapi, actionNames, token, disableAuth, currentUser, currentPerms, locale, userNumbersShape, userLocales, userPreferredLocale, tenantDefaultLocale, dateformat, defaultTranslations, timezone, currency, plugins, bindings, discovery, translations, history, serverDown } = this.props;
     if (serverDown) {
       return <div>Error: server is down.</div>;
     }
@@ -107,11 +106,22 @@ class Root extends Component {
       setToken: (val) => { store.dispatch(setOkapiToken(val)); },
       actionNames,
       locale,
+      userNumbersShape,
+      dateformat,
+      userLocales,
+      userPreferredLocale,
+      tenantDefaultLocale,
       timezone,
       currency,
       metadata,
       icons,
       setLocale: (localeValue) => { loadTranslations(store, localeValue, defaultTranslations); },
+      setUserNumbersShape: (numbersShape) => { store.dispatch(setUserNumbersShape(numbersShape)); },
+      setUserLocales: (userLocalesValues) => { store.dispatch(setUserLocales(userLocalesValues)); },
+      setUserPreferredLocale: (userPreferredLocaleValue) => { store.dispatch(setUserPreferredLocale(userPreferredLocaleValue)); },
+      setTenantDefaultLocale: (tenantDefaultLocaleValue) => { store.dispatch(setTenantDefaultLocale(tenantDefaultLocaleValue)); },
+      setDateformat: (dateformatValue) => { store.dispatch(setDateformat(dateformatValue)); },
+      setTranslations: (translationsValue) => { store.dispatch(setTranslations(translationsValue)); },
       setTimezone: (timezoneValue) => { store.dispatch(setTimezone(timezoneValue)); },
       setCurrency: (currencyValue) => { store.dispatch(setCurrency(currencyValue)); },
       plugins: plugins || {},
@@ -180,6 +190,11 @@ Root.propTypes = {
   currentUser: PropTypes.object,
   epics: PropTypes.object,
   locale: PropTypes.string,
+  userNumbersShape: PropTypes.string,
+  dateformat: PropTypes.string,
+  userLocales: PropTypes.arrayOf(PropTypes.string),
+  userPreferredLocale: PropTypes.string,
+  tenantDefaultLocale: PropTypes.string,
   defaultTranslations: PropTypes.object,
   timezone: PropTypes.string,
   currency: PropTypes.string,
@@ -230,6 +245,11 @@ function mapStateToProps(state) {
     currentUser: state.okapi.currentUser,
     currentPerms: state.okapi.currentPerms,
     locale: state.okapi.locale,
+    userNumbersShape: state.okapi.userNumbersShape,
+    dateformat: state.okapi.dateformat,
+    userLocales: state.okapi.userLocales,
+    userPreferredLocale: state.okapi.userPreferredLocale,
+    tenantDefaultLocale: state.okapi.tenantDefaultLocale,
     timezone: state.okapi.timezone,
     currency: state.okapi.currency,
     translations: state.okapi.translations,
