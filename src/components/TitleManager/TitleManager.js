@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Titled } from 'react-titled';
+import { injectIntl, intlShape } from 'react-intl';
 import { withStripes } from '../../StripesContext';
 
 const APP = 'FOLIO';
 
 class TitleManager extends React.Component {
   static propTypes = {
+    intl: intlShape.isRequired,
     children: PropTypes.node,
     page: PropTypes.string,
     record: PropTypes.string,
@@ -18,12 +20,12 @@ class TitleManager extends React.Component {
   }
 
   renderTitle = (currentTitle) => {
-    const { page, record } = this.props;
+    const { page, record, intl } = this.props;
 
     if (typeof currentTitle !== 'string') return '';
 
     const tokens = currentTitle.split(' - ');
-    if (page) tokens[0] = page;
+    if (page) tokens[0] = intl.formatMessage({ id: `${page}`, defaultMessage: `${page}` });
     if (record) tokens[1] = record;
 
     tokens[2] = (this.props.stripes.config || {}).platformName || APP;
@@ -42,4 +44,4 @@ class TitleManager extends React.Component {
   }
 }
 
-export default withStripes(TitleManager);
+export default injectIntl(withStripes(TitleManager));

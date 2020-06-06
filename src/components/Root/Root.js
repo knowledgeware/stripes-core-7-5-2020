@@ -142,7 +142,7 @@ class Root extends Component {
           <ApolloProvider client={createApolloClient(okapi)}>
             <IntlProvider
               locale={locale}
-              key={locale}
+              // key={locale}
               timeZone={timezone}
               currency={currency}
               messages={translations}
@@ -232,7 +232,7 @@ Root.propTypes = {
 Root.defaultProps = {
   history: createBrowserHistory(),
   // TODO: remove after locale is accessible from a global config / public url
-  locale: 'en-US',
+  locale: 'en',
   timezone: 'UTC',
   currency: 'USD',
   okapiReady: false,

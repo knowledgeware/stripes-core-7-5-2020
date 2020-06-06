@@ -9,7 +9,7 @@ import NavListItem from '@folio/stripes-components/lib/NavListItem';
 import NavListSection from '@folio/stripes-components/lib/NavListSection';
 import Paneset from '@folio/stripes-components/lib/Paneset';
 import Pane from '@folio/stripes-components/lib/Pane';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 
 import About from '../About';
 import { StripesContext } from '../../StripesContext';
@@ -21,6 +21,7 @@ import css from './Settings.css';
 
 class Settings extends React.Component {
   static propTypes = {
+    intl: intlShape.isRequired,
     stripes: stripesShape.isRequired,
     location: PropTypes.shape({
       pathname: PropTypes.string,
@@ -58,7 +59,11 @@ class Settings extends React.Component {
   }
 
   render() {
-    const { stripes, location } = this.props;
+    const { stripes, location, intl } = this.props;
+    this.connectedModules.map(({ module }) => {
+      module.displayName = intl.formatMessage({ id: `ui-${module.module.replace('@folio/', '')}.meta.title`, defaultMessage: `${module.module.replace('@folio/', '')}` });
+      return null;
+    });
     const navLinks = this.connectedModules.map(({ module }) => (
       <NavListItem
         key={module.route}
@@ -132,4 +137,4 @@ class Settings extends React.Component {
   }
 }
 
-export default withRouter(withModules(Settings));
+export default injectIntl(withRouter(withModules(Settings)));

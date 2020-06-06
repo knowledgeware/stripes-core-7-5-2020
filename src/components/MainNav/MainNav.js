@@ -167,6 +167,13 @@ class MainNav extends Component {
      * until Settings becomes a standalone app
      */
 
+    apps.map(app => {
+      if (app.href) {
+        app.displayName = formatMessage({ id: `ui-${app.name}.meta.title`, defaultMessage: `${app.name}` });
+      }
+      return null;
+    });
+
     if (stripes.hasPerm('settings.enabled')) {
       apps.push({
         displayName: formatMessage({ id: 'stripes-core.settings' }),
@@ -225,12 +232,12 @@ class MainNav extends Component {
                   </Button>
                 </div>
                 <NavDivider md="hide" />
-                <UserLocalesSwitcher
+                <ProfileDropdown
+                  onLogout={this.logout}
                   stripes={stripes}
                 />
                 <NavDivider md="hide" />
-                <ProfileDropdown
-                  onLogout={this.logout}
+                <UserLocalesSwitcher
                   stripes={stripes}
                 />
               </nav>

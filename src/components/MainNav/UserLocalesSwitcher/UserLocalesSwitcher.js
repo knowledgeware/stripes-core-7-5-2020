@@ -7,6 +7,7 @@ import NavListSection from '@folio/stripes-components/lib/NavListSection';
 import NavListItem from '@folio/stripes-components/lib/NavListItem';
 import Icon from '@folio/stripes-components/lib/Icon';
 
+import uniqueId from 'lodash/uniqueId';
 import NavDropdownMenu from '../NavDropdownMenu';
 import NavButton from '../NavButton';
 
@@ -24,6 +25,7 @@ class UserLocalesSwitcher extends Component {
     super(props);
 
     this.state = {};
+    this.id = uniqueId('userLocalesDropdown-');
   }
 
   setInitialState(callback) {
@@ -110,7 +112,7 @@ class UserLocalesSwitcher extends Component {
         { HandlerComponent && <HandlerComponent stripes={this.props.stripes} /> }
         <Dropdown
           open={dropdownOpen}
-          id="userLocalesDropdown"
+          id={this.id}
           onToggle={this.toggleDropdown}
           pullRight
           hasPadding
