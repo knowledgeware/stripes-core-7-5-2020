@@ -232,7 +232,8 @@ Root.propTypes = {
 Root.defaultProps = {
   history: createBrowserHistory(),
   // TODO: remove after locale is accessible from a global config / public url
-  locale: 'en',
+  locale: 'en-US',
+  dateformat: 'MM-DD-YYYY',
   timezone: 'UTC',
   currency: 'USD',
   okapiReady: false,
