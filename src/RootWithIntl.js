@@ -87,9 +87,9 @@ class RootWithIntl extends React.Component {
                     <MainContainer>
                       <OverlayContainer />
                       <AppCtxMenuProvider>
-                        <div key={this.props.stripes.locale}>
-                          <MainNav stripes={stripes} />
-                        </div>
+                        {/* <div key={this.props.stripes.locale}> */}
+                        <MainNav stripes={stripes} />
+                        {/* </div> */}
                         <HandlerManager
                           event={events.LOGIN}
                           stripes={stripes}

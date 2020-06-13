@@ -30,3 +30,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+@media (--medium-down) {
+  .button__label {
+    display: none;
+  }
+}

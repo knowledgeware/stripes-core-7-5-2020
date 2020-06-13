@@ -85,11 +85,18 @@ class AppList extends Component {
   renderNavButtons = (refs, hiddenItemIds, itemWidths) => {
     const { selectedApp, apps } = this.props;
 
+    let filterdHidden;
+    if (selectedApp && hiddenItemIds.includes(selectedApp.id)) {
+      filterdHidden = hiddenItemIds.filter(item => item !== selectedApp.id);
+    } else {
+      filterdHidden = hiddenItemIds;
+    }
+
     return (
       <ul className={css.navItemsList}>
         {
           apps.map(app => {
-            const hidden = hiddenItemIds.includes(app.id);
+            const hidden = filterdHidden.includes(app.id);
 
             return (
               <li
@@ -97,7 +104,7 @@ class AppList extends Component {
                 key={app.id}
                 ref={refs[app.id]}
                 aria-hidden={hidden}
-                style={{ width: itemWidths[app.id] }}
+                // style={{ width: itemWidths[app.id] }}
               >
                 <NavButton
                   data-test-app-list-item
@@ -172,6 +179,13 @@ class AppList extends Component {
       return null;
     }
 
+    let filterdHidden;
+    if (selectedApp && hiddenItemIds.includes(selectedApp.id)) {
+      filterdHidden = hiddenItemIds.filter(item => item !== selectedApp.id);
+    } else {
+      filterdHidden = hiddenItemIds;
+    }
+
     return (
       <div className={css.navListDropdownWrap}>
         <Dropdown
@@ -185,7 +199,7 @@ class AppList extends Component {
           { ({ onToggle }) => (
             <DropdownMenu onToggle={onToggle}>
               <AppListDropdown
-                apps={apps.filter(item => hiddenItemIds.includes(item.id))}
+                apps={apps.filter(item => filterdHidden.includes(item.id))}
                 dropdownToggleId={dropdownToggleId}
                 listRef={dropdownListRef}
                 selectedApp={selectedApp}

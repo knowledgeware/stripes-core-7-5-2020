@@ -1,0 +1,82 @@
+@import '@folio/stripes-components/lib/variables.css';
+
+/* :root {
+    --main-nav-min-height-desktop: 70px;
+    --main-nav-min-height-mobile: 48px;
+    --main-nav-border-bottom-color: rgba(0, 0, 0, 0.9);
+    --main-nav-background-color: rgba(205, 239, 243, 0.8);
+    --main-nav-text-color: #fff;
+  } */
+
+.LibNav {
+    position: fixed;
+    justify-content: space-between;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgb(243, 243, 247);
+    height: 70px;
+    z-index: 99999;
+}
+
+.LibNav_nav {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 1rem;
+}
+
+.LibNav_Logo {
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    height: 60px;
+}
+
+.spaccer {
+    flex: 1;
+}
+
+.LibNav_nav_items ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.LibNav_nav_items li {
+    padding: 0 0.5rem;
+}
+
+.LibNav_nav_items Button {
+    padding: 0;
+    margin: 0;
+}
+
+.LibNavButton {
+    display: flex;
+  }
+
+@media (--medium-down) {
+    /* li {
+      display: none;
+    } */
+
+    .LibNav_Logo {
+      margin: 0;
+      padding: 0;
+      width: 100px;
+      height: 50px;
+    }
+  }
+
+  @media (--large-up) {
+    /* .toggle_button {
+      display: none;
+    } */
+
+    /* .LibNavButton {
+        display: none;
+      } */
+  }

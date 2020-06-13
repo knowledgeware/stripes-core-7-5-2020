@@ -14,12 +14,12 @@ import NavListItem from '@folio/stripes-components/lib/NavListItem';
 import Icon from '@folio/stripes-components/lib/Icon';
 import List from '@folio/stripes-components/lib/List';
 
-import NavButton from '../NavButton';
 import css from './ProfileDropdown.css';
 import { withModules } from '../../Modules';
 import { getHandlerComponent } from '../../../handlerService';
 import validations from '../../../userDropdownLinksService';
 import IntlConsumer from '../../IntlConsumer';
+import LibNavButton from '../LibNav/LibNavButton/LibNavButton';
 
 class ProfileDropdown extends Component {
   static propTypes = {
@@ -251,11 +251,13 @@ class ProfileDropdown extends Component {
 
   renderProfileTrigger = ({ getTriggerProps, open }) => {
     const servicePointName = get(this.getUserData(), 'curServicePoint.name', null);
+    const user = this.getUserData();
+    const CurrentUser = user.firstName.concat(' ', user.lastName);
 
     return (
       <FormattedMessage id="stripes-core.mainnav.myProfileAriaLabel">
         {label => (
-          <NavButton
+          <LibNavButton
             ariaLabel={label}
             selected={open}
             className={css.button}
@@ -263,6 +265,8 @@ class ProfileDropdown extends Component {
             label={servicePointName ? (
               <>
                 <span className={css.button__label}>
+                  {CurrentUser}
+                  {' | '}
                   {servicePointName}
                 </span>
                 <Icon icon={open ? 'caret-up' : 'caret-down'} />

@@ -9,7 +9,7 @@ import Icon from '@folio/stripes-components/lib/Icon';
 
 import uniqueId from 'lodash/uniqueId';
 import NavDropdownMenu from '../NavDropdownMenu';
-import NavButton from '../NavButton';
+import LibNavButton from '../LibNav/LibNavButton/LibNavButton';
 
 class UserLocalesSwitcher extends Component {
   static propTypes = {
@@ -119,7 +119,7 @@ class UserLocalesSwitcher extends Component {
           disabled={userLocales && userLocales.length === 1}
           focusHandlers={{ open: () => null }}
         >
-          <NavButton
+          <LibNavButton
             label={label}
             data-role="toggle"
             ariaLabel="userLocalesSwitcher"
