@@ -8,12 +8,14 @@ import classnames from 'classnames';
 import debounce from 'lodash/debounce';
 import PropTypes from 'prop-types';
 import css from './ResizeContainer.css';
+import { withStripes } from '../../../../../StripesContext';
 
-const ResizeContainer = ({ className, children, hideAllWidth, offset, items: allItems }) => {
+const ResizeContainer = ({ className, children, hideAllWidth, offset, items: allItems, stripes: { locale } }) => {
   const wrapperRef = useRef(null);
   const [ready, setReady] = useState(false);
   const [hiddenItems, setHiddenItems] = useState([]);
   const [cachedItemWidths, setCachedItemWidths] = useState({});
+  const [currentLocale, setcurrentLocale] = useState(locale);
 
   // Assign a ref for each item on mount
   const [refs] = useState(() => allItems.reduce((acc, app) => {
@@ -59,10 +61,18 @@ const ResizeContainer = ({ className, children, hideAllWidth, offset, items: all
     }
   }, 150);
 
+  // console.log('currentLocale', currentLocale, 'locale', locale, 'allItems', allItems);
+
+  // if (currentLocale !== locale) {
+  //   setcurrentLocale(locale);
+  //   // setCachedItemWidths({});
+  //   // updateHiddenItems();
+  //   window.addEventListener('resize', updateHiddenItems, true);
+  // }
+
   useEffect(() => {
     // Cache menu item widths on mount since it's unlikely they will change
     setCachedItemWidths(Object.keys(refs).reduce((acc, id) => Object.assign(acc, { [id]: get(refs, `${id}.current.clientWidth`) }), {}));
-
     return () => {
       window.removeEventListener('resize', updateHiddenItems, true);
     };
@@ -103,10 +113,11 @@ ResizeContainer.propTypes = {
   hideAllWidth: PropTypes.number,
   items: PropTypes.arrayOf(PropTypes.object),
   offset: PropTypes.number,
+  stripes: PropTypes.object,
 };
 
 ResizeContainer.defaultProps = {
   offset: 200,
 };
 
-export default ResizeContainer;
+export default withStripes(ResizeContainer);

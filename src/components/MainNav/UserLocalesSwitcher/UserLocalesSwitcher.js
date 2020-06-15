@@ -85,7 +85,7 @@ class UserLocalesSwitcher extends Component {
                 </Icon>
                 {(userPreferredLocale && (ul.value === userPreferredLocale)) &&
                   <div>
-                    {[...Array(3)].map(() => <Icon icon={LocalesIcons.star} />)}
+                    {[...Array(1)].map(() => <Icon icon={LocalesIcons.star} />)}
                   </div>}
               </div>
             </NavListItem>

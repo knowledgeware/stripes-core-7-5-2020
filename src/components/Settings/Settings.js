@@ -18,6 +18,7 @@ import { withModules } from '../Modules';
 import { stripesShape } from '../../Stripes';
 
 import css from './Settings.css';
+import { AppIcon } from '../../..';
 
 class Settings extends React.Component {
   static propTypes = {
@@ -64,14 +65,24 @@ class Settings extends React.Component {
       module.displayName = intl.formatMessage({ id: `ui-${module.module.replace('@folio/', '')}.meta.title`, defaultMessage: `${module.module.replace('@folio/', '')}` });
       return null;
     });
-    const navLinks = this.connectedModules.map(({ module }) => (
-      <NavListItem
-        key={module.route}
-        to={`/settings${module.route}`}
-      >
-        {module.displayName}
-      </NavListItem>
-    ));
+    const navLinks = this.connectedModules.map(({ module }) => {
+      const iconData = module.module.replace(/^@[a-z0-9_]+\//, '');
+      return (
+        <NavListItem
+          key={module.route}
+          to={`/settings${module.route}`}
+        >
+          <AppIcon
+            alt={module.displayName}
+            app={iconData}
+            size="small"
+            iconClassName={css.appIcon}
+          >
+            {module.displayName}
+          </AppIcon>
+        </NavListItem>
+      );
+    });
 
     const routes = this.connectedModules.map(({ module, Component, moduleStripes }) => {
       return (<Route

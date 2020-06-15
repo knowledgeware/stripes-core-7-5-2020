@@ -7,6 +7,8 @@ export { LastVisitedContext, withLastVisited } from './LastVisited';
 export { default as Login } from './Login';
 export { default as MainContainer } from './MainContainer';
 export { default as MainNav } from './MainNav';
+export { default as LibNav } from './MainNav/LibNav';
+export { default as AppsNav } from './MainNav/AppsNav';
 export { default as ModuleContainer } from './ModuleContainer';
 export { withModule, withModules } from './Modules';
 export { default as ModuleTranslator } from './ModuleTranslator';

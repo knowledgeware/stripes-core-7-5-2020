@@ -262,13 +262,14 @@ class ProfileDropdown extends Component {
             selected={open}
             className={css.button}
             icon={this.getProfileImage()}
-            label={servicePointName ? (
+            label={servicePointName || CurrentUser ? (
               <>
-                <span className={css.button__label}>
-                  {CurrentUser}
-                  {' | '}
-                  {servicePointName}
-                </span>
+                {CurrentUser}
+                {servicePointName ?
+                  <div className={css.button__label}>
+                    {' | '}
+                    {servicePointName}
+                  </div> : null}
                 <Icon icon={open ? 'caret-up' : 'caret-down'} />
               </>
             ) : null}

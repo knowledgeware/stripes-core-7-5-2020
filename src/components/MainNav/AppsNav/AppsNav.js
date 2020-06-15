@@ -209,6 +209,7 @@ class AppsNav extends Component {
                   <img className={css.AppsNav_Logo} src={FOLIOLogo} alt="FOLIOLogo" />
                 </Link>
               </div>
+              {/* <div style={{ flex: 1 }} /> */}
               <nav aria-labelledby="main_navigation_label" className={css.endSection}>
                 <h2 className="sr-only" id="main_navigation_label">
                   <FormattedMessage id="stripes-core.mainnav.topLevelLabel" />

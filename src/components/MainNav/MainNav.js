@@ -11,12 +11,10 @@ class MainNav extends Component {
   render() {
     const { stripes } = this.props;
     return (
-      <div>
+      <>
         <LibNav stripes={stripes} />
-        <main style={{ marginTop: '70px' }}>
-          <AppsNav stripes={stripes} />
-        </main>
-      </div>
+        <AppsNav stripes={stripes} />
+      </>
     );
   }
 }

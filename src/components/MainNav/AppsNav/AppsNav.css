@@ -20,7 +20,7 @@
   flex: 0 0 auto;
   padding: 0 var(--gutter-static-one-third);
   min-height: var(--main-nav-min-height-desktop);
-  z-index: 99999;
+  /* z-index: 99999; */
   /* position: relative; */
 }
 
@@ -49,7 +49,7 @@
   height: 45px;
 }
 
-@media (--medium-down) {
+@media (--small) {
   .navRoot {
     min-height: var(--main-nav-min-height-mobile);
   }
