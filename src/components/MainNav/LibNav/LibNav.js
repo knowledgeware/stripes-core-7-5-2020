@@ -149,7 +149,7 @@ class LibNav extends Component {
         <header className={css.LibNav}>
           <nav className={css.LibNav_nav}>
             <div className={css.LibNav_Logo}>
-              <a href="http://www.kwareict.com" rel="noopener noreferrer" target="_blank">
+              <a href="https://m.mu.edu.sa" rel="noopener noreferrer" target="_blank">
                 <img className={css.LibNav_Logo} src={MajmaahUS} alt="LibNavLogo" />
               </a>
             </div>
