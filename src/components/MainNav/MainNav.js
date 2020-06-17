@@ -13,7 +13,9 @@ class MainNav extends Component {
     return (
       <>
         <LibNav stripes={stripes} />
-        <AppsNav stripes={stripes} />
+        <div key={this.props.stripes.locale}>
+          <AppsNav stripes={stripes} />
+        </div>
       </>
     );
   }

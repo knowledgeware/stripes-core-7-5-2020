@@ -34,9 +34,11 @@ import {
   ForgotPasswordCtrl,
   ForgotUserNameCtrl,
   AppCtxMenuProvider,
+  LibNav,
 } from './components';
 import { StripesContext } from './StripesContext';
 import CalloutContext from './CalloutContext';
+import MainFooter from './components/MainFooter/MainFooter';
 
 class RootWithIntl extends React.Component {
   static propTypes = {
@@ -128,6 +130,7 @@ class RootWithIntl extends React.Component {
                           </Switch>
                         </ModuleContainer>
                         )}
+                        <MainFooter stripes={stripes} />
                       </AppCtxMenuProvider>
                     </MainContainer> :
                     <Switch>

@@ -204,12 +204,11 @@ class AppsNav extends Component {
             <header className={css.navRoot}>
               <div className={css.startSection}>
                 <SkipLink />
-                {/* <CurrentAppGroup selectedApp={selectedApp} config={stripes.config} /> */}
-                <Link to="/">
+                <CurrentAppGroup selectedApp={selectedApp} config={stripes.config} />
+                {/* <Link to="/">
                   <img className={css.AppsNav_Logo} src={FOLIOLogo} alt="FOLIOLogo" />
-                </Link>
+                </Link> */}
               </div>
-              {/* <div style={{ flex: 1 }} /> */}
               <nav aria-labelledby="main_navigation_label" className={css.endSection}>
                 <h2 className="sr-only" id="main_navigation_label">
                   <FormattedMessage id="stripes-core.mainnav.topLevelLabel" />

@@ -1,0 +1,105 @@
+@import '@folio/stripes-components/lib/variables.css';
+
+.Footer {
+    position: relative;
+    border-top: 1px solid rgba(170, 167, 167, 0.9);
+    /* border-color: black; */
+    justify-content: space-between;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgb(243, 243, 247);
+    height: 56px;
+    z-index: 99999;
+}
+
+.Footer_nav {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 1rem;
+}
+
+.Footer_Logo {
+    margin: 0;
+    padding: 0;
+    width: 180px;
+    height: 40px;
+}
+
+.Footer_IndexData_Logo {
+    margin: 0;
+    padding: 0;
+    width: 50px;
+    height: 40px;
+}
+
+.Footer_OpenLibrary_Logo {
+    margin: 0;
+    padding: 0;
+    width: 100px;
+    height: 40px;
+}
+
+.spaccer {
+    flex: 1;
+}
+
+.Footer_nav_items ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.Footer_nav_items li {
+    padding: 0 0.5rem;
+}
+
+.Footer_nav_items Button {
+    padding: 0;
+    margin: 0;
+}
+
+.FooterButton {
+    display: flex;
+  }
+
+@media (--medium-down) {
+    .Footer_nav_items ul {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .Footer_Logo {
+      margin: 0;
+      padding: 0;
+      width: 50px;
+      height: 20px;
+    }
+
+    .Footer_IndexData_Logo {
+        margin: 0;
+        padding: 0;
+        width: 20px;
+        height: 20px;
+    }
+    
+    .Footer_OpenLibrary_Logo {
+        margin: 0;
+        padding: 0;
+        width: 40px;
+        height: 20px;
+    }
+  }
+
+  @media (--large-up) {
+    /* .toggle_button {
+      display: none;
+    } */
+
+    /* .FooterButton {
+        display: none;
+      } */
+  }

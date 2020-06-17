@@ -2,7 +2,7 @@
  * App List
  */
 
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -11,10 +11,17 @@ import { Dropdown } from '@folio/stripes-components/lib/Dropdown';
 import DropdownMenu from '@folio/stripes-components/lib/DropdownMenu';
 import Icon from '@folio/stripes-components/lib/Icon';
 
+import { isEqual } from 'lodash';
 import { ResizeContainer, AppListDropdown } from './components';
 import NavButton from '../NavButton';
 import css from './AppList.css';
+import { withStripes } from '../../../..';
 
+function getItemsRefs(apps) {
+  return apps.reduce((acc, app) => {
+    return Object.assign(acc, { [app.id]: createRef(null) });
+  }, {});
+}
 class AppList extends Component {
   static propTypes = {
     apps: PropTypes.arrayOf(
@@ -32,6 +39,7 @@ class AppList extends Component {
     dropdownId: PropTypes.string,
     dropdownToggleId: PropTypes.string.isRequired,
     selectedApp: PropTypes.object,
+    stripes: PropTypes.object,
   }
 
   static contextTypes = {
@@ -43,6 +51,8 @@ class AppList extends Component {
 
     this.state = {
       open: false,
+      APPs: props.apps,
+      ItemsRefs: getItemsRefs(props.apps),
     };
 
     this.focusHandlers = {
@@ -63,6 +73,17 @@ class AppList extends Component {
     this.dropdownToggleRef = React.createRef();
   }
 
+  static getDerivedStateFromProps(props, state) {
+    console.log('!isEqual(props.apps, state.APPs', !isEqual(props.apps, state.APPs));
+    if (!isEqual(props.apps, state.APPs)) {
+      return {
+        APPs: props.apps,
+        ItemsRefs: getItemsRefs(props.apps),
+      };
+    }
+    return null;
+  }
+
   /**
    * focus management
    */
@@ -78,6 +99,12 @@ class AppList extends Component {
     return false;
   }
 
+  // getItemsRefs = (apps) => {
+  //   return apps.reduce((acc, app) => {
+  //     return Object.assign(acc, { [app.id]: createRef(null) });
+  //   }, {});
+  // }
+
   /**
    * Get the nav buttons that is displayed
    * in the app header on desktop
@@ -85,18 +112,19 @@ class AppList extends Component {
   renderNavButtons = (refs, hiddenItemIds, itemWidths) => {
     const { selectedApp, apps } = this.props;
 
-    // let filterdHidden;
-    // if (selectedApp && hiddenItemIds.includes(selectedApp.id)) {
-    //   filterdHidden = hiddenItemIds.filter(item => item !== selectedApp.id);
-    // } else {
-    //   filterdHidden = hiddenItemIds;
-    // }
+    console.log('itemWidths', itemWidths, 'hiddenItems', hiddenItemIds, 'refs', refs);
+    let filterdHidden;
+    if (selectedApp && hiddenItemIds.includes(selectedApp.id)) {
+      filterdHidden = hiddenItemIds.filter(item => item !== selectedApp.id);
+    } else {
+      filterdHidden = hiddenItemIds;
+    }
 
     return (
       <ul className={css.navItemsList}>
         {
           apps.map(app => {
-            const hidden = hiddenItemIds.includes(app.id);
+            const hidden = filterdHidden.includes(app.id);
 
             return (
               <li
@@ -179,12 +207,12 @@ class AppList extends Component {
       return null;
     }
 
-    // let filterdHidden;
-    // if (selectedApp && hiddenItemIds.includes(selectedApp.id)) {
-    //   filterdHidden = hiddenItemIds.filter(item => item !== selectedApp.id);
-    // } else {
-    //   filterdHidden = hiddenItemIds;
-    // }
+    let filterdHidden;
+    if (selectedApp && hiddenItemIds.includes(selectedApp.id)) {
+      filterdHidden = hiddenItemIds.filter(item => item !== selectedApp.id);
+    } else {
+      filterdHidden = hiddenItemIds;
+    }
 
     return (
       <div className={css.navListDropdownWrap}>
@@ -199,7 +227,7 @@ class AppList extends Component {
           { ({ onToggle }) => (
             <DropdownMenu onToggle={onToggle}>
               <AppListDropdown
-                apps={apps.filter(item => hiddenItemIds.includes(item.id))}
+                apps={apps.filter(item => filterdHidden.includes(item.id))}
                 dropdownToggleId={dropdownToggleId}
                 listRef={dropdownListRef}
                 selectedApp={selectedApp}
@@ -216,22 +244,25 @@ class AppList extends Component {
   render() {
     const { apps } = this.props;
 
+    // const ItemsRefs = this.getItemsRefs(this.state.APPs);
+    console.log('apps', apps, 'this.state.APPs', this.state.APPs, 'ItemsRefs', this.state.ItemsRefs);
     // If no apps are installed
     if (!apps.length) {
       return null;
     }
-
     return (
-      <ResizeContainer items={apps} hideAllWidth={767}>
+      <ResizeContainer items={apps} refs={this.state.ItemsRefs} hideAllWidth={767}>
         {({ refs, hiddenItems, itemWidths }) => {
           return (
-            <nav className={css.appList} aria-labelledby="main_app_list_label" data-test-app-list>
-              <h3 className="sr-only" id="main_app_list_label">
-                <FormattedMessage id="stripes-core.mainnav.applicationListLabel" />
-              </h3>
-              {this.renderNavButtons(refs, hiddenItems, itemWidths)}
-              {this.renderNavDropdown(hiddenItems)}
-            </nav>
+            <div key={this.props.stripes.locale}>
+              <nav className={css.appList} aria-labelledby="main_app_list_label" data-test-app-list>
+                <h3 className="sr-only" id="main_app_list_label">
+                  <FormattedMessage id="stripes-core.mainnav.applicationListLabel" />
+                </h3>
+                {this.renderNavButtons(this.state.ItemsRefs, hiddenItems, itemWidths)}
+                {this.renderNavDropdown(hiddenItems)}
+              </nav>
+            </div>
           );
         }
       }
@@ -240,4 +271,4 @@ class AppList extends Component {
   }
 }
 
-export default AppList;
+export default withStripes(AppList);

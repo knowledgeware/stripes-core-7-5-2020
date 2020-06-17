@@ -8,6 +8,7 @@ import { withRouter } from 'react-router';
 import localforage from 'localforage';
 
 import { Button, Icon, Dropdown, NavListItem } from '@folio/stripes-components';
+import { Link } from 'react-router-dom';
 import { withModules } from '../../Modules';
 import { clearOkapiToken, clearCurrentUser } from '../../../okapiActions';
 import { resetStore } from '../../../mainActions';
@@ -24,6 +25,7 @@ import ProfileDropdown from '../ProfileDropdown';
 
 import UserLocalesSwitcher from '../UserLocalesSwitcher/UserLocalesSwitcher';
 import LibNavLogo from '../kwareict.png';
+import MajmaahUS from './MajmaahUS.png';
 // import ToggleNav from './ToggleNav/ToggleNav';
 // import NavDropdownMenu from '../NavDropdownMenu';
 // import LibNavButton from './LibNavButton';
@@ -61,9 +63,9 @@ class LibNav extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      userMenuOpen: false,
-    };
+    // this.state = {
+    //   userMenuOpen: false,
+    // };
     this.store = props.stripes.store;
     this.logout = this.logout.bind(this);
   }
@@ -113,25 +115,6 @@ class LibNav extends Component {
     this._unsubscribe();
   }
 
-  // setInitialState(callback) {
-  //   this.setState({
-  //     dropdownOpen: false,
-  //   }, callback);
-  // }
-
-  // toggleDropdown = () => {
-  //   this.setState(({ dropdownOpen }) => ({
-  //     dropdownOpen: !dropdownOpen
-  //   }));
-  // }
-
-  // toggleUserMenu() {
-  //   const isOpen = this.state.userMenuOpen;
-  //   this.setState({
-  //     userMenuOpen: !isOpen,
-  //   });
-  // }
-
   // Return the user to the login screen, but after logging in they will return to their previous activity.
   returnToLogin() {
     this.store.dispatch(clearOkapiToken());
@@ -166,9 +149,9 @@ class LibNav extends Component {
         <header className={css.LibNav}>
           <nav className={css.LibNav_nav}>
             <div className={css.LibNav_Logo}>
-              {/* <Link to="/"> */}
-              <img className={css.LibNav_Logo} src={LibNavLogo} alt="LibNavLogo" />
-              {/* </Link> */}
+              <a href="http://www.kwareict.com" rel="noopener noreferrer" target="_blank">
+                <img className={css.LibNav_Logo} src={MajmaahUS} alt="LibNavLogo" />
+              </a>
             </div>
             <div className={css.spaccer} />
             <div className={css.LibNav_nav_items}>
