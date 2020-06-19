@@ -159,16 +159,16 @@ class LibNav extends Component {
                 <li>
                   <ProfileDropdown onLogout={this.logout} stripes={stripes} />
                 </li>
-                {/* <li>
+                <li>
                   <Button buttonStyle="dropdownItem" onClick={this.settingsButtonClick}>
                     <Icon icon="settings" />
                   </Button>
-                </li> */}
-                {/* <li>
+                </li>
+                <li>
                   <Button buttonStyle="dropdownItem" onClick={this.homeButtonClick}>
                     <Icon icon="house" />
                   </Button>
-                </li> */}
+                </li>
                 <li>
                   <UserLocalesSwitcher stripes={stripes} />
                 </li>

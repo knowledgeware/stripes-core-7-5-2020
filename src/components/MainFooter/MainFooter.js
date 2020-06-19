@@ -33,7 +33,7 @@ class MainFooter extends Component {
                 </li>
                 <li>
                   <a href="https://www.ebsco.com" rel="noopener noreferrer" target="_blank">
-                    <img className={css.Footer_Logo} src={EBSCOLogo} alt="FooterLogo" />
+                    <img className={css.Footer_EBSCO_Logo} src={EBSCOLogo} alt="FooterLogo" />
                   </a>
                 </li>
                 <li>

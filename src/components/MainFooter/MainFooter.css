@@ -1,7 +1,7 @@
 @import '@folio/stripes-components/lib/variables.css';
 
 .Footer {
-    position: relative;
+    /* position: relative; */
     border-top: 1px solid rgba(170, 167, 167, 0.9);
     /* border-color: black; */
     justify-content: space-between;
@@ -9,8 +9,8 @@
     left: 0;
     width: 100%;
     background: rgb(243, 243, 247);
-    height: 56px;
-    z-index: 99999;
+    height: 45px;
+    /* z-index: 99999; */
 }
 
 .Footer_nav {
@@ -23,22 +23,29 @@
 .Footer_Logo {
     margin: 0;
     padding: 0;
-    width: 180px;
-    height: 40px;
+    width: 130px;
+    height: 30px;
 }
 
 .Footer_IndexData_Logo {
     margin: 0;
     padding: 0;
-    width: 50px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
+}
+
+.Footer_EBSCO_Logo {
+    margin: 0;
+    padding: 0;
+    width: 80px;
+    height: 20px;
 }
 
 .Footer_OpenLibrary_Logo {
     margin: 0;
     padding: 0;
-    width: 100px;
-    height: 40px;
+    width: 80px;
+    height: 30px;
 }
 
 .spaccer {
