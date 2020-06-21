@@ -252,7 +252,7 @@ class ProfileDropdown extends Component {
   renderProfileTrigger = ({ getTriggerProps, open }) => {
     const servicePointName = get(this.getUserData(), 'curServicePoint.name', null);
     const user = this.getUserData();
-    const CurrentUser = user.firstName.concat(' ', user.lastName);
+    const CurrentUser = user.firstName ? user.firstName.concat(' ', user.lastName) : null;
 
     return (
       <FormattedMessage id="stripes-core.mainnav.myProfileAriaLabel">

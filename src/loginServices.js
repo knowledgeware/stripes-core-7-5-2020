@@ -152,6 +152,13 @@ export function getLocale(okapiUrl, store, tenant) {
                       if (UserprefferdLocale && UserprefferdLocale[0] !== undefined) {
                         loadTranslations(store, UserprefferdLocale[0].value);
                         store.dispatch(setUserPreferredLocale(UserprefferdLocale[0].value));
+                        const userId = store.getState().okapi.currentUser.id;
+                        const localPreferredLocale = localStorage.getItem('PreferredLocale');
+                        const localUserPreferredLocale = { 'userId': userId, 'PreferredLocale': UserprefferdLocale[0].value };
+                        console.log('localPreferredLocale', localPreferredLocale);
+                        if (!localPreferredLocale || localPreferredLocale.userId !== userId) {
+                          localStorage.setItem('PreferredLocale', JSON.stringify(localUserPreferredLocale));
+                        }
                       } else {
                         fetch(`${okapiUrl}/configurations/entries?query=(module=ORG and configName=localeSettings)`,
                           { headers: getHeaders(tenant, store.getState().okapi.token) })

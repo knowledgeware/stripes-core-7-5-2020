@@ -33,6 +33,7 @@ if (!metadata) {
   console.error('No metadata harvested from package files, so you will not get app icons. Probably the stripes-core in your Stripes CLI is too old. Try `yarn global upgrade @folio/stripes-cli`');
 }
 
+const PreferredLocale = localStorage.getItem('PreferredLocale');
 class Root extends Component {
   constructor(...args) {
     super(...args);
@@ -232,7 +233,7 @@ Root.propTypes = {
 Root.defaultProps = {
   history: createBrowserHistory(),
   // TODO: remove after locale is accessible from a global config / public url
-  locale: 'en-US',
+  locale: PreferredLocale ? JSON.parse(PreferredLocale).PreferredLocale : 'en-US',
   dateformat: 'MM-DD-YYYY',
   timezone: 'UTC',
   currency: 'USD',
