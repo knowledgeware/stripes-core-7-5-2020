@@ -27,7 +27,8 @@ import {
   setUserServicePoints,
   setUserLocales,
   setUserPreferredLocale,
-  setTenantDefaultLocale
+  setTenantDefaultLocale,
+  setTenantLocales
 } from './okapiActions';
 import processBadResponse from './processBadResponse';
 
@@ -73,31 +74,18 @@ export function loadTranslations(store, locale, defaultTranslations = {}) {
       if (response.ok) {
         response.json().then((stripesTranslations) => {
           if (store.getState().okapi.token !== undefined) {
-            fetch(`${store.getState().okapi.url}/locales?limit=1000`,
+            fetch(`${store.getState().okapi.url}/libTranslations?query=(localeValue==${locale})`,
               { headers: getHeaders(store.getState().okapi.tenant, store.getState().okapi.token) })
-              .then((locales) => {
-                if (locales.status === 200) {
-                  locales.json().then((loc) => {
-                    if (loc.locales.length) {
-                      const currLocaleDateFormat = loc.locales.filter(curId => curId.value === locale).map(format => format.defaultDateFormat);
-                      fetch(`${store.getState().okapi.url}/libTranslations?query=(localeValue==${locale})`,
-                        { headers: getHeaders(store.getState().okapi.tenant, store.getState().okapi.token) })
-                        .then((translation) => {
-                          if (translation.status === 200) {
-                            translation.json().then((trans) => {
-                              const policiesTranslations = trans.libTranslations.map(id => id.masseges);
-                              if (policiesTranslations && policiesTranslations[0] !== undefined && policiesTranslations[0][0] !== undefined) {
-                                store.dispatch(setTranslations(Object.assign(stripesTranslations, defaultTranslations, policiesTranslations[0][0])));
-                                store.dispatch(setLocale(locale));
-                                store.dispatch(setDateformat(currLocaleDateFormat[0]));
-                              } else {
-                                store.dispatch(setTranslations(Object.assign(stripesTranslations, defaultTranslations)));
-                                store.dispatch(setLocale(locale));
-                                store.dispatch(setDateformat(currLocaleDateFormat[0]));
-                              }
-                            });
-                          }
-                        });
+              .then((translation) => {
+                if (translation.status === 200) {
+                  translation.json().then((trans) => {
+                    const policiesTranslations = trans.libTranslations.map(id => id.masseges);
+                    if (policiesTranslations && policiesTranslations[0] !== undefined && policiesTranslations[0][0] !== undefined) {
+                      store.dispatch(setTranslations(Object.assign(stripesTranslations, defaultTranslations, policiesTranslations[0][0])));
+                      store.dispatch(setLocale(locale));
+                    } else {
+                      store.dispatch(setTranslations(Object.assign(stripesTranslations, defaultTranslations)));
+                      store.dispatch(setLocale(locale));
                     }
                   });
                 }
@@ -111,7 +99,60 @@ export function loadTranslations(store, locale, defaultTranslations = {}) {
     });
 }
 
+export function getUserLocales(okapiUrl, store, tenant, tenantAvailableLocales, tenantDefaultLocale, userId) {
+  fetch(`${okapiUrl}/userLocales?query=(userId==${userId})`,
+    { headers: getHeaders(tenant, store.getState().okapi.token) })
+    .then((userlocale) => {
+      if (userlocale.status === 200) {
+        userlocale.json().then((userLoc) => {
+          if (userLoc.userLocales.length) {
+            const userLocales = userLoc.userLocales[0].localesIds
+              .map(uul => tenantAvailableLocales.find(ul => ul.id === uul));
+
+            if (userLocales && userLocales.length !== 0) {
+              store.dispatch(setUserLocales(userLocales));
+              store.dispatch(setUserNumbersShape(userLoc.userLocales[0].numbersShape));
+              localStorage.setItem('userLocales', JSON.stringify({
+                userId,
+                'userLocales': userLocales
+              }));
+              localStorage.setItem('userNumbersShape', JSON.stringify({
+                userId,
+                'userNumbersShape': userLoc.userLocales[0].numbersShape
+              }));
+            }
+            const UserprefferdLocale = userLoc.userLocales
+              .map(uul => userLocales.find(ul => ul.id === uul.defaultUserLocaleId));
+
+            if (UserprefferdLocale && UserprefferdLocale[0] !== undefined) {
+              loadTranslations(store, UserprefferdLocale[0].value);
+              store.dispatch(setUserPreferredLocale(UserprefferdLocale[0].value));
+              store.dispatch(setDateformat(UserprefferdLocale[0].defaultDateFormat));
+              localStorage.setItem('LogInInfo', JSON.stringify({
+                userId,
+                LogInLocale: UserprefferdLocale[0].value,
+                UserPreferredLocale: UserprefferdLocale[0].value,
+                dateformat: UserprefferdLocale[0].defaultDateFormat
+              }));
+            } else {
+              loadTranslations(store, tenantDefaultLocale.value);
+              store.dispatch(setDateformat(tenantDefaultLocale.defaultDateFormat));
+              localStorage.setItem('LogInInfo', JSON.stringify({
+                userId,
+                LogInLocale: tenantDefaultLocale.value,
+                UserPreferredLocale: undefined,
+                dateformat: tenantDefaultLocale.defaultDateFormat
+              }));
+            }
+          }
+        });
+      }
+    });
+}
+
 export function getLocale(okapiUrl, store, tenant) {
+  let tenantlocale;
+
   fetch(`${okapiUrl}/configurations/entries?query=(module=ORG and configName=localeSettings)`,
     { headers: getHeaders(tenant, store.getState().okapi.token) })
     .then((response) => {
@@ -120,7 +161,10 @@ export function getLocale(okapiUrl, store, tenant) {
           if (json.configs.length) {
             const localeValues = JSON.parse(json.configs[0].value);
             const { locale, timezone, currency } = localeValues;
-            if (locale) store.dispatch(setTenantDefaultLocale(locale));
+            if (locale) {
+              store.dispatch(setTenantDefaultLocale(locale));
+              tenantlocale = locale;
+            }
             if (timezone) store.dispatch(setTimezone(timezone));
             if (currency) store.dispatch(setCurrency(currency));
           }
@@ -128,58 +172,29 @@ export function getLocale(okapiUrl, store, tenant) {
       }
     });
 
-  fetch(`${okapiUrl}/userLocales?query=(userId==${store.getState().okapi.currentUser.id})`,
+  const userId = store.getState().okapi.currentUser.id;
+  const localLogInInfo = localStorage.getItem('LogInInfo');
+  const LogInInfo = JSON.parse(localLogInInfo);
+
+  fetch(`${okapiUrl}/locales?limit=1000`,
     { headers: getHeaders(tenant, store.getState().okapi.token) })
-    .then((userlocale) => {
-      if (userlocale.status === 200) {
-        userlocale.json().then((userLoc) => {
-          if (userLoc.userLocales.length) {
-            fetch(`${okapiUrl}/locales?limit=1000`,
-              { headers: getHeaders(tenant, store.getState().okapi.token) })
-              .then((locales) => {
-                if (locales.status === 200) {
-                  locales.json().then((loc) => {
-                    if (loc.locales.length) {
-                      const userLocales = userLoc.userLocales[0].localesIds
-                        .map(uul => loc.locales.find(ul => ul.id === uul));
-
-                      store.dispatch(setUserLocales(userLocales));
-                      store.dispatch(setUserNumbersShape(userLoc.userLocales[0].numbersShape));
-
-                      const UserprefferdLocale = userLoc.userLocales
-                        .map(uul => userLocales.find(ul => ul.id === uul.defaultUserLocaleId));
-
-                      if (UserprefferdLocale && UserprefferdLocale[0] !== undefined) {
-                        loadTranslations(store, UserprefferdLocale[0].value);
-                        store.dispatch(setUserPreferredLocale(UserprefferdLocale[0].value));
-                        const userId = store.getState().okapi.currentUser.id;
-                        const localPreferredLocale = localStorage.getItem('PreferredLocale');
-                        const localUserPreferredLocale = { 'userId': userId, 'PreferredLocale': UserprefferdLocale[0].value };
-                        console.log('localPreferredLocale', localPreferredLocale);
-                        if (!localPreferredLocale || localPreferredLocale.userId !== userId) {
-                          localStorage.setItem('PreferredLocale', JSON.stringify(localUserPreferredLocale));
-                        }
-                      } else {
-                        fetch(`${okapiUrl}/configurations/entries?query=(module=ORG and configName=localeSettings)`,
-                          { headers: getHeaders(tenant, store.getState().okapi.token) })
-                          .then((response) => {
-                            if (response.status === 200) {
-                              response.json().then((json) => {
-                                if (json.configs.length) {
-                                  const localeValues = JSON.parse(json.configs[0].value);
-                                  const { locale } = localeValues;
-                                  if (locale) {
-                                    loadTranslations(store, locale);
-                                  }
-                                }
-                              });
-                            }
-                          });
-                      }
-                    }
-                  });
-                }
-              });
+    .then((locales) => {
+      if (locales.status === 200) {
+        locales.json().then((loc) => {
+          if (loc.locales.length) {
+            store.dispatch(setTenantLocales(loc.locales));
+            const tenantDefaultLocale = loc.locales.find(locale => locale.value === tenantlocale);
+            console.log(!LogInInfo || (LogInInfo && LogInInfo.userId !== userId), LogInInfo);
+            if (!LogInInfo || (LogInInfo && LogInInfo.userId !== userId)) {
+              getUserLocales(okapiUrl, store, tenant, loc.locales, tenantDefaultLocale, userId);
+            } else {
+              loadTranslations(store, LogInInfo.LogInLocale);
+              store.dispatch(setDateformat(LogInInfo.dateformat));
+            }
+          } else {
+            localStorage.removeItem('LogInInfo');
+            localStorage.removeItem('userLocales');
+            localStorage.removeItem('userNumbersShape');
           }
         });
       }

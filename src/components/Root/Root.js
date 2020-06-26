@@ -17,7 +17,11 @@ import { ConnectContext } from '@folio/stripes-connect';
 import initialReducers from '../../initialReducers';
 import enhanceReducer from '../../enhanceReducer';
 import createApolloClient from '../../createApolloClient';
-import { setSinglePlugin, setBindings, setOkapiToken, setTimezone, setCurrency, setUserNumbersShape, setDateformat, setUserLocales, setUserPreferredLocale, setTenantDefaultLocale, setTranslations } from '../../okapiActions';
+import {
+  setSinglePlugin, setBindings, setOkapiToken, setTimezone, setCurrency,
+  setUserNumbersShape, setDateformat, setTenantLocales, setUserLocales,
+  setUserPreferredLocale, setTenantDefaultLocale, setTranslations
+} from '../../okapiActions';
 import { loadTranslations, checkOkapiSession } from '../../loginServices';
 import { getQueryResourceKey, getCurrentModule } from '../../locationService';
 import Stripes from '../../Stripes';
@@ -33,7 +37,10 @@ if (!metadata) {
   console.error('No metadata harvested from package files, so you will not get app icons. Probably the stripes-core in your Stripes CLI is too old. Try `yarn global upgrade @folio/stripes-cli`');
 }
 
-const PreferredLocale = localStorage.getItem('PreferredLocale');
+const LogInLocale = localStorage.getItem('LogInInfo');
+const LocalUserLocales = localStorage.getItem('userLocales');
+const LocalUserNumbersShape = localStorage.getItem('userNumbersShape');
+
 class Root extends Component {
   constructor(...args) {
     super(...args);
@@ -87,7 +94,12 @@ class Root extends Component {
   }
 
   render() {
-    const { logger, store, epics, config, okapi, actionNames, token, disableAuth, currentUser, currentPerms, locale, userNumbersShape, userLocales, userPreferredLocale, tenantDefaultLocale, dateformat, defaultTranslations, timezone, currency, plugins, bindings, discovery, translations, history, serverDown } = this.props;
+    const {
+      logger, store, epics, config, okapi, actionNames, token, disableAuth,
+      currentUser, currentPerms, locale, tenantLocales, userNumbersShape,
+      userLocales, userPreferredLocale, tenantDefaultLocale, dateformat, defaultTranslations,
+      timezone, currency, plugins, bindings, discovery, translations, history, serverDown
+    } = this.props;
     if (serverDown) {
       return <div>Error: server is down.</div>;
     }
@@ -110,6 +122,7 @@ class Root extends Component {
       userNumbersShape,
       dateformat,
       userLocales,
+      tenantLocales,
       userPreferredLocale,
       tenantDefaultLocale,
       timezone,
@@ -119,6 +132,7 @@ class Root extends Component {
       setLocale: (localeValue) => { loadTranslations(store, localeValue, defaultTranslations); },
       setUserNumbersShape: (numbersShape) => { store.dispatch(setUserNumbersShape(numbersShape)); },
       setUserLocales: (userLocalesValues) => { store.dispatch(setUserLocales(userLocalesValues)); },
+      setTenantLocales: (TenantLocalesValues) => { store.dispatch(setTenantLocales(TenantLocalesValues)); },
       setUserPreferredLocale: (userPreferredLocaleValue) => { store.dispatch(setUserPreferredLocale(userPreferredLocaleValue)); },
       setTenantDefaultLocale: (tenantDefaultLocaleValue) => { store.dispatch(setTenantDefaultLocale(tenantDefaultLocaleValue)); },
       setDateformat: (dateformatValue) => { store.dispatch(setDateformat(dateformatValue)); },
@@ -193,6 +207,7 @@ Root.propTypes = {
   locale: PropTypes.string,
   userNumbersShape: PropTypes.string,
   dateformat: PropTypes.string,
+  tenantLocales: PropTypes.arrayOf(PropTypes.string),
   userLocales: PropTypes.arrayOf(PropTypes.string),
   userPreferredLocale: PropTypes.string,
   tenantDefaultLocale: PropTypes.string,
@@ -233,12 +248,15 @@ Root.propTypes = {
 Root.defaultProps = {
   history: createBrowserHistory(),
   // TODO: remove after locale is accessible from a global config / public url
-  locale: PreferredLocale ? JSON.parse(PreferredLocale).PreferredLocale : 'en-US',
-  dateformat: 'MM-DD-YYYY',
+  locale: LogInLocale ? JSON.parse(LogInLocale).LogInLocale : 'en-US',
+  dateformat: LogInLocale ? JSON.parse(LogInLocale).dateformat : 'MM-DD-YYYY',
   timezone: 'UTC',
   currency: 'USD',
   okapiReady: false,
   serverDown: false,
+  userLocales: LocalUserLocales ? JSON.parse(LocalUserLocales).userLocales : [],
+  userPreferredLocale: LogInLocale ? JSON.parse(LogInLocale).UserPreferredLocale : null,
+  userNumbersShape: LocalUserNumbersShape ? JSON.parse(LocalUserNumbersShape).userNumbersShape : 'en',
 };
 
 function mapStateToProps(state) {
@@ -249,6 +267,7 @@ function mapStateToProps(state) {
     locale: state.okapi.locale,
     userNumbersShape: state.okapi.userNumbersShape,
     dateformat: state.okapi.dateformat,
+    tenantLocales: state.okapi.tenantLocales,
     userLocales: state.okapi.userLocales,
     userPreferredLocale: state.okapi.userPreferredLocale,
     tenantDefaultLocale: state.okapi.tenantDefaultLocale,

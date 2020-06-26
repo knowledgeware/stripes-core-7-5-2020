@@ -1,13 +1,5 @@
 @import '@folio/stripes-components/lib/variables.css';
 
-/* :root {
-    --main-nav-min-height-desktop: 70px;
-    --main-nav-min-height-mobile: 48px;
-    --main-nav-border-bottom-color: rgba(0, 0, 0, 0.9);
-    --main-nav-background-color: rgba(205, 239, 243, 0.8);
-    --main-nav-text-color: #fff;
-  } */
-
 .LibNav {
     position: relative;
     justify-content: space-between;
@@ -16,7 +8,7 @@
     width: 100%;
     background: rgb(243, 243, 247);
     height: 70px;
-    z-index: 99999;
+    /* z-index: 99999; */
 }
 
 .LibNav_nav {
@@ -59,24 +51,10 @@
   }
 
 @media (--medium-down) {
-    /* li {
-      display: none;
-    } */
-
     .LibNav_Logo {
       margin: 0;
       padding: 0;
       width: 100px;
       height: 50px;
     }
-  }
-
-  @media (--large-up) {
-    /* .toggle_button {
-      display: none;
-    } */
-
-    /* .LibNavButton {
-        display: none;
-      } */
   }

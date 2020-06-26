@@ -142,6 +142,14 @@ function setUserServicePoints(servicePoints) {
   };
 }
 
+
+function setTenantLocales(tenantLocales) {
+  return {
+    type: 'SET_TENANT_LOCALES',
+    tenantLocales,
+  };
+}
+
 function setUserLocales(userLocales) {
   return {
     type: 'SET_USER_LOCALES',
@@ -185,6 +193,7 @@ export {
   setSessionData,
   setCurrentServicePoint,
   setUserServicePoints,
+  setTenantLocales,
   setUserLocales,
   setUserPreferredLocale,
   setTenantDefaultLocale

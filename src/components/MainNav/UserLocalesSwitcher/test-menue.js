@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Dropdown } from '@folio/stripes-components/lib/Dropdown';
@@ -8,15 +8,15 @@ import NavListItem from '@folio/stripes-components/lib/NavListItem';
 import Icon from '@folio/stripes-components/lib/Icon';
 
 import uniqueId from 'lodash/uniqueId';
-import { DropdownMenu, Badge } from '@folio/stripes-components';
+import NavDropdownMenu from '../NavDropdownMenu';
 import LibNavButton from '../LibNav/LibNavButton/LibNavButton';
-import css from './UserLocalesSwitcher.css';
+import { DropdownMenu } from '@folio/stripes-components';
 
 class UserLocalesSwitcher extends Component {
   static propTypes = {
     stripes: PropTypes.shape({
       setLocale: PropTypes.func,
-      setDateformat: PropTypes.func,
+      setTranslations: PropTypes.func,
       okapi: PropTypes.object,
       locale: PropTypes.string,
     }).isRequired,
@@ -32,6 +32,7 @@ class UserLocalesSwitcher extends Component {
   setInitialState(callback) {
     this.setState({
       dropdownOpen: false,
+      HandlerComponent: null,
     }, callback);
   }
 
@@ -49,16 +50,13 @@ class UserLocalesSwitcher extends Component {
   }
 
   setLocale = (locale) => {
-    if (locale) {
-      this.props.stripes.setLocale(locale.value);
-      this.props.stripes.setDateformat(locale.defaultDateFormat);
-      this.toggleDropdown();
-    }
+    if (locale) this.props.stripes.setLocale(locale);
+    this.toggleDropdown();
   };
 
   getDropdownContent = () => {
-    const { stripes: { userPreferredLocale, locale, tenantDefaultLocale } } = this.props;
-    let { stripes: { userLocales, tenantLocales } } = this.props;
+    const { stripes: { userPreferredLocale, locale } } = this.props;
+    let { stripes: { userLocales } } = this.props;
 
     const LocalesIcons = this.ImportLocalesIcones();
 
@@ -72,58 +70,34 @@ class UserLocalesSwitcher extends Component {
       userLocales = userLocales.filter(ul => ul.value !== locale);
     }
 
-    if (tenantLocales && tenantLocales.length && (tenantDefaultLocale !== locale)) {
-      tenantLocales = tenantLocales.filter(ul => ul.value !== locale);
-    }
-
     return (
       <NavList>
         <NavListSection>
-          {!userLocales || userLocales.length === 0 ?
-            (tenantLocales && tenantLocales.map(tl => (
-              <NavListItem
-                id={`clickable-locale-${tl.value}`}
-                type="button"
-                onClick={() => this.setLocale(tl)}
-                disabled={tl.value === locale}
-              >
-                <div style={style}>
-                  <Icon icon={LocalesIcons[tl.value] ? LocalesIcons[tl.value] : 'flag'}>
-                    <FormattedMessage id={`stripes-core.ul.button.languageName.${tl.value}`} />
-                  </Icon>
-                  {(tenantDefaultLocale && (tl.value === tenantDefaultLocale)) &&
-                    <div>
-                      <Badge>Default</Badge>
-                    </div>}
-                </div>
-              </NavListItem>
-            )))
-            : (userLocales && userLocales.map(ul => (
-              <NavListItem
-                id={`clickable-locale-${ul.value}`}
-                type="button"
-                onClick={() => this.setLocale(ul)}
-                disabled={ul.value === locale}
-              >
-                <div style={style}>
-                  <Icon icon={LocalesIcons[ul.value] ? LocalesIcons[ul.value] : 'flag'}>
-                    <FormattedMessage id={`stripes-core.ul.button.languageName.${ul.value}`} />
-                  </Icon>
-                  {(userPreferredLocale && (ul.value === userPreferredLocale)) &&
-                    <div>
-                      <Icon icon={LocalesIcons.star} />
-                    </div>}
-                </div>
-              </NavListItem>
-            )))
-        }
+          {userLocales && userLocales.map(ul => (
+            <NavListItem
+              id={`clickable-locale-${ul.value}`}
+              type="button"
+              onClick={() => this.setLocale(ul.value)}
+              disabled={ul.value === locale}
+            >
+              <div style={style}>
+                <Icon icon={LocalesIcons[ul.value] ? LocalesIcons[ul.value] : 'flag'}>
+                  <FormattedMessage id={`stripes-core.ul.button.languageName.${ul.value}`} />
+                </Icon>
+                {(userPreferredLocale && (ul.value === userPreferredLocale)) &&
+                  <div>
+                    {[...Array(1)].map(() => <Icon icon={LocalesIcons.star} />)}
+                  </div>}
+              </div>
+            </NavListItem>
+          ))}
         </NavListSection>
       </NavList>
     );
   }
 
   renderProfileTrigger = ({ getTriggerProps, open }) => {
-    const { stripes: { locale } } = this.props;
+    const { stripes: { locale, userLocales } } = this.props;
 
     const labelElement = (
       <Icon iconPosition="end" icon={open ? 'caret-up' : 'caret-down'}>
@@ -138,7 +112,7 @@ class UserLocalesSwitcher extends Component {
         {label => (
           <LibNavButton
             label={labelElement}
-            data-role="toggle"
+            // data-role="toggle"
             ariaLabel={label}
             selected={open}
             icon={LocalesIcons[locale] ? <Icon icon={LocalesIcons[locale]} /> : <Icon icon="flag" />}
@@ -150,29 +124,52 @@ class UserLocalesSwitcher extends Component {
   }
 
   renderProfileMenu = ({ open }) => (
-    <DropdownMenu open={open}>
+    <NavDropdownMenu open={open}>
       {this.getDropdownContent()}
-    </DropdownMenu>
+    </NavDropdownMenu>
   );
 
   render() {
-    const { dropdownOpen } = this.state;
-    const { stripes: { tenantLocales } } = this.props;
+    const { dropdownOpen, HandlerComponent } = this.state;
+    const { stripes: { locale, userLocales } } = this.props;
+
+    // const label = (
+    //   <Icon iconPosition="end" icon={dropdownOpen ? 'caret-up' : 'caret-down'}>
+    //     {locale.split('-')[0]}
+    //   </Icon>
+    // );
+
+    // const LocalesIcons = this.ImportLocalesIcones();
 
     return (
       <>
+        { HandlerComponent && <HandlerComponent stripes={this.props.stripes} /> }
         <Dropdown
-          id="userLanguageSwitcherDropdown"
           renderTrigger={this.renderProfileTrigger}
           renderMenu={this.renderProfileMenu}
           open={dropdownOpen}
+          id={this.id}
           onToggle={this.toggleDropdown}
-          pullRight
+          // pullRight
+          // hasPadding
+          // relativePosition
           placement="bottom-end"
           relativePosition
-          disabled={!tenantLocales}
+          usePortal={false}
+          disabled={userLocales && userLocales.length === 1}
           focusHandlers={{ open: () => null }}
-        />
+        >
+          {/* <LibNavButton
+            label={label}
+            data-role="toggle"
+            ariaLabel="userLocalesSwitcher"
+            selected={dropdownOpen}
+            icon={LocalesIcons[locale] ? <Icon icon={LocalesIcons[locale]} /> : <Icon icon="flag" />}
+          />
+          <DropdownMenu data-role="menu" open={dropdownOpen} onToggle={this.toggleDropdown}>
+            {this.getDropdownContent()}
+          </DropdownMenu> */}
+        </Dropdown>
       </>
     );
   }

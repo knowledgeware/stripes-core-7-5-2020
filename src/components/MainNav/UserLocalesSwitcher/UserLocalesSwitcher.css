@@ -1,6 +1,7 @@
-.container{ 
+@import '@folio/stripes-components/lib/variables.css';
+
+.favIcon { 
   display: flex;
   flex: 1;
   justify-content: 'space-between';
-  flex-Direction: 'row',
 }

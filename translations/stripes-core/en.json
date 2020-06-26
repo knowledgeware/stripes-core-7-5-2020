@@ -5,9 +5,7 @@
   "ul.button.show.CurUserProfile":"My Profile",
   "ul.button.ChooseUserLocales":"Switch Language",
   "ul.modal.switchUserlocalesModal.titel":"Switch Language",
-  "ul.button.noLanguageToswitch":"No Languages to switch",
-  "login.userPreferredLocale": "Logged in with user preferred locale",
-  "login.tenant.locale": "Logged in with tenant locale",
+  "ul.button.noLanguageToswitch":"There are no languages to switch.",
 
   "ul.button.languageName.defaultLanguage": "Default (EN)",
   "ul.button.languageName.ar-AR":"Arabic / العربية",

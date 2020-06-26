@@ -44,6 +44,8 @@ export default function okapiReducer(state = {}, action) {
       return { ...state, currentUser: { ...state.currentUser, curServicePoint: action.servicePoint } };
     case 'SET_USER_SERVICE_POINTS':
       return { ...state, currentUser: { ...state.currentUser, servicePoints: action.servicePoints } };
+    case 'SET_TENANT_LOCALES':
+      return Object.assign({}, state, { tenantLocales: action.tenantLocales });
     case 'SET_USER_LOCALES':
       return Object.assign({}, state, { userLocales: action.userLocales });
     case 'SET_USER_PREFERRED_LOCALE':
