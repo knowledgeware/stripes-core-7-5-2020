@@ -6,6 +6,7 @@
   "ul.button.ChooseUserLocales":"Switch Language",
   "ul.modal.switchUserlocalesModal.titel":"Switch Language",
   "ul.button.noLanguageToswitch":"There are no languages to switch.",
+  "languageSwitcher.tenantDefaultLocale": "Default",
 
   "ul.button.languageName.defaultLanguage": "Default (EN)",
   "ul.button.languageName.ar-AR":"Arabic / العربية",

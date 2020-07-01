@@ -93,7 +93,7 @@ class UserLocalesSwitcher extends Component {
                   </Icon>
                   {(tenantDefaultLocale && (tl.value === tenantDefaultLocale)) &&
                     <div>
-                      <Badge>Default</Badge>
+                      <Badge><FormattedMessage id="stripes-core.languageSwitcher.tenantDefaultLocale" /></Badge>
                     </div>}
                 </div>
               </NavListItem>

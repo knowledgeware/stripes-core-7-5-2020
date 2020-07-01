@@ -37,9 +37,7 @@ if (!metadata) {
   console.error('No metadata harvested from package files, so you will not get app icons. Probably the stripes-core in your Stripes CLI is too old. Try `yarn global upgrade @folio/stripes-cli`');
 }
 
-const LogInLocale = localStorage.getItem('LogInInfo');
-const LocalUserLocales = localStorage.getItem('userLocales');
-const LocalUserNumbersShape = localStorage.getItem('userNumbersShape');
+const LoginLocale = localStorage.getItem('LoginLocale');
 
 class Root extends Component {
   constructor(...args) {
@@ -248,15 +246,12 @@ Root.propTypes = {
 Root.defaultProps = {
   history: createBrowserHistory(),
   // TODO: remove after locale is accessible from a global config / public url
-  locale: LogInLocale ? JSON.parse(LogInLocale).LogInLocale : 'en-US',
-  dateformat: LogInLocale ? JSON.parse(LogInLocale).dateformat : 'MM-DD-YYYY',
+  locale: LoginLocale ? JSON.parse(LoginLocale).LoginLocale : 'en-US',
   timezone: 'UTC',
   currency: 'USD',
   okapiReady: false,
   serverDown: false,
-  userLocales: LocalUserLocales ? JSON.parse(LocalUserLocales).userLocales : [],
-  userPreferredLocale: LogInLocale ? JSON.parse(LogInLocale).UserPreferredLocale : null,
-  userNumbersShape: LocalUserNumbersShape ? JSON.parse(LocalUserNumbersShape).userNumbersShape : 'en',
+  userNumbersShape: 'en',
 };
 
 function mapStateToProps(state) {

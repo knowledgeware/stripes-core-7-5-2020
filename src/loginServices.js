@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _, { sortBy } from 'lodash';
 import 'isomorphic-fetch';
 import localforage from 'localforage';
 import { addLocaleData } from 'react-intl';
@@ -109,18 +109,9 @@ export function getUserLocales(okapiUrl, store, tenant, tenantAvailableLocales, 
             const userLocales = userLoc.userLocales[0].localesIds
               .map(uul => tenantAvailableLocales.find(ul => ul.id === uul));
 
-            if (userLocales && userLocales.length !== 0) {
-              store.dispatch(setUserLocales(userLocales));
-              store.dispatch(setUserNumbersShape(userLoc.userLocales[0].numbersShape));
-              localStorage.setItem('userLocales', JSON.stringify({
-                userId,
-                'userLocales': userLocales
-              }));
-              localStorage.setItem('userNumbersShape', JSON.stringify({
-                userId,
-                'userNumbersShape': userLoc.userLocales[0].numbersShape
-              }));
-            }
+            store.dispatch(setUserLocales(userLocales));
+            store.dispatch(setUserNumbersShape(userLoc.userLocales[0].numbersShape));
+
             const UserprefferdLocale = userLoc.userLocales
               .map(uul => userLocales.find(ul => ul.id === uul.defaultUserLocaleId));
 
@@ -128,20 +119,16 @@ export function getUserLocales(okapiUrl, store, tenant, tenantAvailableLocales, 
               loadTranslations(store, UserprefferdLocale[0].value);
               store.dispatch(setUserPreferredLocale(UserprefferdLocale[0].value));
               store.dispatch(setDateformat(UserprefferdLocale[0].defaultDateFormat));
-              localStorage.setItem('LogInInfo', JSON.stringify({
+              localStorage.setItem('LoginLocale', JSON.stringify({
                 userId,
-                LogInLocale: UserprefferdLocale[0].value,
-                UserPreferredLocale: UserprefferdLocale[0].value,
-                dateformat: UserprefferdLocale[0].defaultDateFormat
+                LoginLocale: UserprefferdLocale[0].value,
               }));
             } else {
               loadTranslations(store, tenantDefaultLocale.value);
               store.dispatch(setDateformat(tenantDefaultLocale.defaultDateFormat));
-              localStorage.setItem('LogInInfo', JSON.stringify({
+              localStorage.setItem('LoginLocale', JSON.stringify({
                 userId,
-                LogInLocale: tenantDefaultLocale.value,
-                UserPreferredLocale: undefined,
-                dateformat: tenantDefaultLocale.defaultDateFormat
+                LoginLocale: tenantDefaultLocale.value,
               }));
             }
           }
@@ -173,8 +160,8 @@ export function getLocale(okapiUrl, store, tenant) {
     });
 
   const userId = store.getState().okapi.currentUser.id;
-  const localLogInInfo = localStorage.getItem('LogInInfo');
-  const LogInInfo = JSON.parse(localLogInInfo);
+  const localLoginLocale = localStorage.getItem('LoginLocale');
+  const LoginLocale = JSON.parse(localLoginLocale);
 
   fetch(`${okapiUrl}/locales?limit=1000`,
     { headers: getHeaders(tenant, store.getState().okapi.token) })
@@ -182,19 +169,12 @@ export function getLocale(okapiUrl, store, tenant) {
       if (locales.status === 200) {
         locales.json().then((loc) => {
           if (loc.locales.length) {
-            store.dispatch(setTenantLocales(loc.locales));
+            store.dispatch(setTenantLocales(sortBy((loc.locales), 'value')));
             const tenantDefaultLocale = loc.locales.find(locale => locale.value === tenantlocale);
-            console.log(!LogInInfo || (LogInInfo && LogInInfo.userId !== userId), LogInInfo);
-            if (!LogInInfo || (LogInInfo && LogInInfo.userId !== userId)) {
-              getUserLocales(okapiUrl, store, tenant, loc.locales, tenantDefaultLocale, userId);
-            } else {
-              loadTranslations(store, LogInInfo.LogInLocale);
-              store.dispatch(setDateformat(LogInInfo.dateformat));
-            }
+            if (LoginLocale && LoginLocale.userId !== userId) localStorage.removeItem('LoginLocale');
+            getUserLocales(okapiUrl, store, tenant, loc.locales, tenantDefaultLocale, userId);
           } else {
-            localStorage.removeItem('LogInInfo');
-            localStorage.removeItem('userLocales');
-            localStorage.removeItem('userNumbersShape');
+            localStorage.removeItem('LoginLocale');
           }
         });
       }

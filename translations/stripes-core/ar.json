@@ -6,6 +6,7 @@
     "ul.button.ChooseUserLocales": "تبديل اللغة ",
     "ul.modal.switchUserlocalesModal.titel": "تبديل اللغة",
     "ul.button.noLanguageToswitch": "لا توجد لغات للتنقل بينها.",
+    "languageSwitcher.tenantDefaultLocale": "الإفتراضى",
 
     "ul.button.languageName.defaultLanguage": "الإفتراضية (الإنجليزية)",
     "ul.button.languageName.ar-AR": "العربية / Arabic",
