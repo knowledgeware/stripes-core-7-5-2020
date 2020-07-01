@@ -6,6 +6,7 @@ This document lays out requirements for settings and preferences, as discussed i
 
 ## Table of contents
 
+* [Introduction](#introduction)
 * [Tenant available locales](#tenant-available-locales)
     * [Tenant defaults for user preferences](#tenant-defaults-for-user-preferences)
 * [UX concerns](#ux-concerns)
@@ -16,6 +17,7 @@ This document lays out requirements for settings and preferences, as discussed i
     * [Multiple module types](#multiple-module-types)
     * [Settings and Preferences as actual modules](#settings-and-preferences-as-actual-modules)
 
+## Introduction
 
 ## Tenant available locales
 
