@@ -6,8 +6,7 @@ This document lays out requirements for settings and preferences, as discussed i
 
 ## Table of contents
 
-<!-- md2toc -l 2 -s 1 settings-and-preferences.md -->
-* [Tenant-level and user-level configuration](#tenant-level-and-user-level-configuration)
+* [Tenant available locales](#tenant-available-locales)
     * [Tenant defaults for user preferences](#tenant-defaults-for-user-preferences)
 * [UX concerns](#ux-concerns)
 * [Software requirements](#software-requirements)
@@ -18,7 +17,7 @@ This document lays out requirements for settings and preferences, as discussed i
     * [Settings and Preferences as actual modules](#settings-and-preferences-as-actual-modules)
 
 
-## Tenant-level and user-level configuration
+## Tenant available locales
 
 Stripes provides means for users to configure FOLIO. Such configuration can be either global across an entire tenant, or local to specific user.
 
