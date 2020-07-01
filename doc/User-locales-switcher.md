@@ -11,8 +11,8 @@ This document lays out requirements for settings and preferences, as discussed i
 * [Language section in tenant-settings module](#language-section-in-tenant-settings-module)
     * [Tenant available locales](#tenant-available-locales)
     * [Tenant defaults for user preferences](#tenant-defaults-for-user-preferences)
-* [User language info section in User Profile (Users App)](#user-language-info-section-in-user-profile-(-users-app-))
-* [User Language Switcher in main navbar (Stripes-core)](#user-language-switcher-in-main-navbar-(-stripes-core-))
+* [User language info section in User Profile (Users App)](#user-language-info-section-in-user-profile-(users-app))
+* [User Language Switcher in main navbar (Stripes-core)](#user-language-switcher-in-main-navbar-(stripes-core))
 
 
 ## Introduction
