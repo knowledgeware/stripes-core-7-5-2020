@@ -16,6 +16,7 @@ This document lays out requirements for settings and preferences, as discussed i
 
 
 ## Introduction
+![FOLIO_Login_Flowchart‬](FOLIO_Login_Flowchart‬.png "FOLIO_Login_Flowchart‬")
 
 ## Changes to existing modules
 
