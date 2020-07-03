@@ -21,7 +21,7 @@ This document lays out requirements for settings and preferences, as discussed i
 ## Changes to existing modules
 
 ## Tenant available locales
-![Tenant_available_languages‬](Tenant available languages 0.png "Tenant_available_languages‬")
+![Tenant_available_languages‬](user-locales-switcher/Tenant available languages 0.png "Tenant_available_languages‬")
 
 ## User language info section in User Profile (Users App)
 
