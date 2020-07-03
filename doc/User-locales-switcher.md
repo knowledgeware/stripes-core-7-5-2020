@@ -16,11 +16,12 @@ This document lays out requirements for settings and preferences, as discussed i
 
 
 ## Introduction
-![FOLIO_Login_Flowchart‬](FOLIO_Login_Flowchart‬.png "FOLIO_Login_Flowchart‬")
+
 
 ## Changes to existing modules
 
 ## Tenant available locales
+![Tenant_available_languages‬](Tenant available languages 0.png "Tenant_available_languages‬")
 
 ## User language info section in User Profile (Users App)
 
