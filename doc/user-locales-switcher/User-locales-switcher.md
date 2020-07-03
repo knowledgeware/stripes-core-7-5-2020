@@ -19,6 +19,7 @@ This document lays out requirements for settings and preferences, as discussed i
 
 
 ## Changes to existing modules
+![Changes_to_existing_modules‬](Changes_to_existing_modules.png "Changes_to_existing_modules‬")
 
 ## Tenant available locales
 ![Tenant_available_languages‬](Tenant_available_languages.png "Tenant_available_languages‬")
