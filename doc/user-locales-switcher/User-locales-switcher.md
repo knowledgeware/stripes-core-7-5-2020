@@ -31,11 +31,12 @@ This document explains the implementation and structure of the "User Locales Swi
 ## Introduction
 
 ## Implementation
-  * User locales switcher has four axes:<br />
+  * User locales switcher has five axes:<br />
   1-[Adding new back-end module](#adding-new-back-end-module) called [mod-user-locales](https://github.com/attia-alshareef/mod-user-locales) for handling the server side work needed.<br />
   2- The system administrator chooses the locales available to the tenant and choose the default locale for the tenant of them.<br />
   3- The end user chooses the list of locales he wants to navigate from among the locales available to the tenant and chooses his preferred locale.<br />
-  4- Handling the login process in order to log in the user's preferred language if it exists, otherwise the login is in the default language for the tenant.<br />
+  4- Handling the login process in order to log in the user's preferred language if it exists, otherwise the user is login with the default language for the tenant.<br />
+  5- Adding language switcher dropdown menue in the `Main Navbar`.
   
 ## Adding new back-end module
 [mod-user-locales](https://github.com/attia-alshareef/mod-user-locales) is a FOLIO back-end module to manage and handling the server side work needed by "User Locales Switcher" operations which controls the tenant and user locales.
@@ -84,7 +85,7 @@ This document explains the implementation and structure of the "User Locales Swi
    ## User's numbers shape
    
 ## Language Switcher in `Stripes-core`
-   ## Folio login locale scenarios‬
+   ## Folio login locale scenarios
    ![FOLIO_Login_locale_scenarios‬](FOLIO_Login_locale_scenarios.png "FOLIO_Login_locale_scenarios")
 
    ## Folio language switcher scenarios
@@ -95,7 +96,7 @@ This document explains the implementation and structure of the "User Locales Swi
 ## Permissions required
    ## Back-end permissions:
    You can find a back-end permissions required for mod-user-locales in the `ModuleDescriptor` 
-   [from here](#https://github.com/attia-alshareef/mod-user-locales/blob/master/descriptors/ModuleDescriptor-template.json)
+   [from here](https://github.com/attia-alshareef/mod-user-locales/blob/master/descriptors/ModuleDescriptor-template.json).
    ## UI Permissions:
    
 ## Problems and challenges   
