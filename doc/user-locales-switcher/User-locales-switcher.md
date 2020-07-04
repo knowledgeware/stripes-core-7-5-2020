@@ -20,11 +20,12 @@ This document explains the implementation  lays out requirements for settings an
 ## Introduction
 
 ## Implementation
-  User locales switcher has four axes:
-  1-[Adding new back-end module](#adding-new-back-end-module) called [mod-user-locales](https://github.com/attia-alshareef/mod-user-locales) for handling the server side work needed
-  2- The system administrator chooses the locales available to the tenant and choose the default locale for the tenant of them.
-  3- The end user chooses the list of locales he wants to navigate from among the locales available to the tenant and chooses his preferred locale.
-  4- Handling the login process in order to log in the user's preferred language if it exists, otherwise the login is in the default language for the tenant.
+  * User locales switcher has four axes:<br />
+  1-[Adding new back-end module](#adding-new-back-end-module) called [mod-user-locales](https://github.com/attia-alshareef/mod-user-locales) for handling the server side work needed.<br />
+  2- The system administrator chooses the locales available to the tenant and choose the default locale for the tenant of them.<br />
+  3- The end user chooses the list of locales he wants to navigate from among the locales available to the tenant and chooses his preferred locale.<br />
+  4- Handling the login process in order to log in the user's preferred language if it exists, otherwise the login is in the default language for the tenant.<br />
+  
 ![FOLIO_Login_locale_scenarios‬](FOLIO_Login_locale_scenarios.png "FOLIO_Login_locale_scenarios")
 
 ## Adding new back-end module
