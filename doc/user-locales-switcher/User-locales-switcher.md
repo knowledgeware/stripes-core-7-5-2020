@@ -34,6 +34,12 @@ This document explains the implementation and structure of the "User Locales Swi
 
 ![mod_user_locales_entity_relationship_diagram‬](mod_user_locales_entity_relationship_diagram.png "mod_user_locales_entity_relationship_diagram")
 
+[mod-user-locales](https://github.com/attia-alshareef/mod-user-locales) contains the following resources:<br />
+   * `Locale` -- make a CRUD operations for the tenant available locales including the default date format for locales.
+   * `User-Locale` -- make a CRUD operations for the user locales including user's preferred locale and user's numbers shape for the `Arabic` interface.
+   
+  **ModuleDescriptor: https://github.com/attia-alshareef/mod-user-locales/blob/master/descriptors/ModuleDescriptor-template.json 
+
 ## Adding new elements to the Stripes object
    * We add the following elements to the Stripes object:<br />
      * `tenantLocales` -- an array of objects specifying the locales available to the tenant.
