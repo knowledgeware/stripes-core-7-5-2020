@@ -15,7 +15,11 @@ This document explains the implementation and structure of the "User Locales Swi
     * [Tenant default locale](#tenant-default-locale)
     * [Default date format for locales](#Default-date-format-for-locales)
 * [User language info section in user profile (Users App)](#user-language-info-section-in-user-profile-users-app)
+    * [User's locales](#user's-locales)
+    * [User's preferred locale](#user's-preferred-locale)
+    * [User's numbers shape](#user's-numbers-shape)
 * [User Language Switcher in main navbar (Stripes-core)](#user-language-switcher-in-main-navbar-stripes-core)
+* [Permissions required](#permissions-required)
 
 
 ## Introduction
@@ -32,13 +36,14 @@ This document explains the implementation and structure of the "User Locales Swi
 ## Adding new back-end module
 [mod-user-locales](https://github.com/attia-alshareef/mod-user-locales) is a FOLIO back-end module to manage and handling the server side work needed by "User Locales Switcher" operations which controls the tenant and user locales.
 
+**ModuleDescriptor: https://github.com/attia-alshareef/mod-user-locales/blob/master/descriptors/ModuleDescriptor-template.json 
+
 ![mod_user_locales_entity_relationship_diagram‬](mod_user_locales_entity_relationship_diagram.png "mod_user_locales_entity_relationship_diagram")
 
 [mod-user-locales](https://github.com/attia-alshareef/mod-user-locales) contains the following resources:<br />
    * `Locale` -- make a CRUD operations for the tenant available locales including the default date format for locales.
    * `User-Locale` -- make a CRUD operations for the user locales including user's preferred locale and user's numbers shape for the `Arabic` interface.
    
-  **ModuleDescriptor: https://github.com/attia-alshareef/mod-user-locales/blob/master/descriptors/ModuleDescriptor-template.json 
 
 ## Adding new elements to the Stripes object
    * We add the following elements to the Stripes object:<br />
@@ -68,8 +73,15 @@ This document explains the implementation and structure of the "User Locales Swi
    ## Default date format for locales
    
 ## User language info section in User Profile (Users App)
-
+   ## User's locales:
+   
+   ## User's preferred locale:
+   
+   ## User's numbers shape
+   
 ## User Language Switcher in main navbar (Stripes-core)
 
 ![FOLIO_Language_Switcher_scenarios‬](FOLIO_Language_Switcher_scenarios.png "FOLIO_Language_Switcher_scenarios")
 
+## Permissions required
+You can find a back-end permissions required for mod-user-locales in the `ModuleDescriptor` [from here](https://github.com/attia-alshareef/mod-user-locales/blob/master/descriptors/ModuleDescriptor-template.json)
