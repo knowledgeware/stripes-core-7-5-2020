@@ -30,7 +30,9 @@ This document explains the implementation and structure of the "User Locales Swi
 ![FOLIO_Login_locale_scenarios‬](FOLIO_Login_locale_scenarios.png "FOLIO_Login_locale_scenarios")
 
 ## Adding new back-end module
-[mod-user-locales](https://github.com/attia-alshareef/mod-user-locales) is a FOLIO back-end module to manage and handling the server side work needed by "User Locales Switcher" operations.
+[mod-user-locales](https://github.com/attia-alshareef/mod-user-locales) is a FOLIO back-end module to manage and handling the server side work needed by "User Locales Switcher" operations which controls the tenant and user locales.
+
+![mod_user_locales_entity_relationship_diagram‬](mod_user_locales_entity_relationship_diagram.png "mod_user_locales_entity_relationship_diagram")
 
 ## Adding new elements to the Stripes object
    * We add the following elements to the Stripes object:<br />
