@@ -26,6 +26,7 @@ This document explains the implementation and structure of the "User Locales Swi
     * [Back-end permissions](#back-end-permissions)
     * [UI Permissions](#ui-permissions)
 * [Problems and challenges](#problems-and-challenges)
+    * [Data loss when switching the language while the form is in progress](#data-loss-when-switching-the-locale-while-the-form-is-in-progress)
 * [Recommendations and future work](#recommendations-and-future-work)
 
 ## Introduction
@@ -99,5 +100,6 @@ This document explains the implementation and structure of the "User Locales Swi
    ## UI Permissions:
    
 ## Problems and challenges   
+   ## Data loss when switching the language while the form is in progress
 
 ## Recommendations and future work
