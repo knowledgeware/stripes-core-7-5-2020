@@ -1,14 +1,8 @@
-   ## Table of contents
+## Get started with user locales switcher
 
-* [Introduction](#introduction)
-* [Implementation](#implementation)
-* [Adding new back-end module](#adding-new-back-end-module)
-* [Adding new elements to the Stripes object](#adding-new-elements-to-the-stripes-object)
-* [Changes to existing modules](#changes-to-existing-modules)
-* [Language section in tenant-settings module](#language-section-in-tenant-settings-module)
-    * [Tenant available locales](#tenant-available-locales)
-    * [Tenant default locale](#tenant-default-locale)
-    * [Default date format for locales](#Default-date-format-for-locales)
+## Table of contents
+
+* [Tenant available locales](#tenant-available-locales)
     
     
    ## Tenant available locales
