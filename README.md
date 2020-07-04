@@ -23,7 +23,7 @@ The documentation roadmap has moved.  Please refer to the [Stripes](https://gith
 * [A component hierarchy example: the "Patrons" module](doc/component-hierarchy.md) shows by example how a set of components -- some connected, some not -- can work together to implement part of an application. **NOTE that this is somewhat out of date**, but still helpfully illustrative.
 * [Adding new permissions to FOLIO UI modules](doc/adding-permissions.md).
 * UX and implementation concerns for [Settings and Preferences](doc/settings-and-preferences.md)
-* [User locales switcher](doc/User-locales-switcher/User-locales-switcher.md)
+* [User locales switcher](doc/user-locales-switcher/User-locales-switcher.md)
 
 ## Additional information
 
