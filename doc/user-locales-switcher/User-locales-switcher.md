@@ -18,12 +18,15 @@ This document explains the implementation and structure of the "User Locales Swi
     * [User's locales](#user's-locales)
     * [User's preferred locale](#user's-preferred-locale)
     * [User's numbers shape](#user's-numbers-shape)
-* [User Language Switcher in main navbar (Stripes-core)](#user-language-switcher-in-main-navbar-stripes-core)
+* [Language Switcher in `Stripes-core`](#language-switcher-in-`Stripes-core`)
+    * [FOLIO Login locale scenarios‬](#folio-login-locale-scenarios‬)
+    * [FOLIO Language Switcher scenarios‬](#folio-language-switcher-scenarios)
+    * [Adding new Navbar‬](#adding-new-navbar)
 * [Permissions required](#permissions-required)
     * [Back-end permissions](#back-end-permissions)
     * [UI Permissions](#ui-permissions)
 * [Problems and challenges](#problems-and-challenges)
-
+* [Recommendations and future work](#recommendations-and-future-work)
 
 ## Introduction
 
@@ -34,8 +37,6 @@ This document explains the implementation and structure of the "User Locales Swi
   3- The end user chooses the list of locales he wants to navigate from among the locales available to the tenant and chooses his preferred locale.<br />
   4- Handling the login process in order to log in the user's preferred language if it exists, otherwise the login is in the default language for the tenant.<br />
   
-![FOLIO_Login_locale_scenarios‬](FOLIO_Login_locale_scenarios.png "FOLIO_Login_locale_scenarios")
-
 ## Adding new back-end module
 [mod-user-locales](https://github.com/attia-alshareef/mod-user-locales) is a FOLIO back-end module to manage and handling the server side work needed by "User Locales Switcher" operations which controls the tenant and user locales.
 
@@ -82,13 +83,20 @@ This document explains the implementation and structure of the "User Locales Swi
    
    ## User's numbers shape
    
-## User Language Switcher in main navbar (Stripes-core)
+## Language Switcher in `Stripes-core`
+   ## FOLIO Login locale scenarios‬
+   ![FOLIO_Login_locale_scenarios‬](FOLIO_Login_locale_scenarios.png "FOLIO_Login_locale_scenarios")
 
-![FOLIO_Language_Switcher_scenarios‬](FOLIO_Language_Switcher_scenarios.png "FOLIO_Language_Switcher_scenarios")
+   ## FOLIO Language Switcher scenarios
+   ![FOLIO_Language_Switcher_scenarios‬](FOLIO_Language_Switcher_scenarios.png "FOLIO_Language_Switcher_scenarios")
+
+   ## Adding new Navbar‬
 
 ## Permissions required
    ## Back-end permissions:
-      You can find a back-end permissions required for mod-user-locales in the `ModuleDescriptor` [from here](https://github.com/attia-alshareef/mod-user-     locales/blob/master/descriptors/ModuleDescriptor-template.json)
+   You can find a back-end permissions required for mod-user-locales in the `ModuleDescriptor` [from here](https://github.com/attia-alshareef/mod-user-     locales/blob/master/descriptors/ModuleDescriptor-template.json)
    ## UI Permissions:
    
 ## Problems and challenges   
+
+## Recommendations and future work
