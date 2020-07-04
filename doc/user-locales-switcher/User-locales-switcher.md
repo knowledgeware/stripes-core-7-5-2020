@@ -71,7 +71,6 @@ This document explains the implementation and structure of the "User Locales Swi
 
 ## Language section in tenant-settings module
    ## Tenant available locales
-   ![Tenant_available_languages‬](Tenant_available_languages.png "Tenant_available_languages‬")
    
    ## Tenant default locale
    
