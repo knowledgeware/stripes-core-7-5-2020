@@ -18,10 +18,10 @@ This document explains the implementation and structure of the "User Locales Swi
     * [User's locales](#user's-locales)
     * [User's preferred locale](#user's-preferred-locale)
     * [User's numbers shape](#user's-numbers-shape)
-* [Language Switcher in `Stripes-core`](#language-switcher-in-`Stripes-core`)
-    * [FOLIO Login locale scenarios‬](#folio-login-locale-scenarios‬)
-    * [FOLIO Language Switcher scenarios‬](#folio-language-switcher-scenarios)
-    * [Adding new Navbar‬](#adding-new-navbar)
+* [Language Switcher in `Stripes-core`](#language-switcher-in-Stripes-core)
+    * [Folio login locale scenarios‬](#folio-login-locale-scenarios‬)
+    * [Folio language switcher scenarios‬](#folio-language-switcher-scenarios)
+    * [Adding new navbar‬](#adding-new-navbar)
 * [Permissions required](#permissions-required)
     * [Back-end permissions](#back-end-permissions)
     * [UI Permissions](#ui-permissions)
@@ -84,17 +84,18 @@ This document explains the implementation and structure of the "User Locales Swi
    ## User's numbers shape
    
 ## Language Switcher in `Stripes-core`
-   ## FOLIO Login locale scenarios‬
+   ## Folio login locale scenarios‬
    ![FOLIO_Login_locale_scenarios‬](FOLIO_Login_locale_scenarios.png "FOLIO_Login_locale_scenarios")
 
-   ## FOLIO Language Switcher scenarios
+   ## Folio language switcher scenarios
    ![FOLIO_Language_Switcher_scenarios‬](FOLIO_Language_Switcher_scenarios.png "FOLIO_Language_Switcher_scenarios")
 
-   ## Adding new Navbar‬
+   ## Adding new navbar‬
 
 ## Permissions required
    ## Back-end permissions:
-   You can find a back-end permissions required for mod-user-locales in the `ModuleDescriptor` [from here](https://github.com/attia-alshareef/mod-user-     locales/blob/master/descriptors/ModuleDescriptor-template.json)
+   You can find a back-end permissions required for mod-user-locales in the `ModuleDescriptor` 
+   [from here](#https://github.com/attia-alshareef/mod-user-locales/blob/master/descriptors/ModuleDescriptor-template.json)
    ## UI Permissions:
    
 ## Problems and challenges   
