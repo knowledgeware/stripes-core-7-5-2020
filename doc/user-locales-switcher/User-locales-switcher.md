@@ -20,6 +20,9 @@ This document explains the implementation and structure of the "User Locales Swi
     * [User's numbers shape](#user's-numbers-shape)
 * [User Language Switcher in main navbar (Stripes-core)](#user-language-switcher-in-main-navbar-stripes-core)
 * [Permissions required](#permissions-required)
+    * [Back-end permissions](#back-end-permissions)
+    * [UI Permissions](#ui-permissions)
+* [Problems and challenges](#problems-and-challenges)
 
 
 ## Introduction
@@ -84,4 +87,8 @@ This document explains the implementation and structure of the "User Locales Swi
 ![FOLIO_Language_Switcher_scenarios‬](FOLIO_Language_Switcher_scenarios.png "FOLIO_Language_Switcher_scenarios")
 
 ## Permissions required
-You can find a back-end permissions required for mod-user-locales in the `ModuleDescriptor` [from here](https://github.com/attia-alshareef/mod-user-locales/blob/master/descriptors/ModuleDescriptor-template.json)
+   ## Back-end permissions:
+      You can find a back-end permissions required for mod-user-locales in the `ModuleDescriptor` [from here](https://github.com/attia-alshareef/mod-user-     locales/blob/master/descriptors/ModuleDescriptor-template.json)
+   ## UI Permissions:
+   
+## Problems and challenges   
