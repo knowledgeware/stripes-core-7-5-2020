@@ -34,18 +34,18 @@ This document explains the implementation and archticher of "User Locales Switch
 
 ## Adding new elements to the Stripes object
    * We add the following elements to the Stripes object:<br />
-     * `tenantLocales` -- an array of objects determines the locales available to the tenant.
+     * `tenantLocales` -- an array of objects specifying the locales available to the tenant.
      * `setTenantLocales` -- a function by which client code can change the locales available to the tenant.
      * `tenantDefaultLocale` -- a short string specifying the prevailing default locale for the tenant, e.g. `en-US`.
-     * `setTenantDefaultLocale` -- a function by which client code can change the prevailing `tenantDefaultLocale`: `stripes.setTenantDefaultLocale('en-US')`.
+     * `setTenantDefaultLocale` -- a function by which client code can change the prevailing tenantDefaultLocale: `stripes.setTenantDefaultLocale('en-US')`.
      * `dateformat` -- a short string specifying the prevailing date format for the current locale, e.g. `MM-DD-YYYY` When you are in the `English - United States` interface.
-     * `setDateformat` -- a function by which client code can change the prevailing `dateformat`: `stripes.dateformat('YYYY/MM/DD')` When you are in the `Arabic` interface.
-     * `userLocales` -- a short string specifying the prevailing locale
-     * `setUserLocales` -- a short string specifying the prevailing locale
-     * `userPreferredLocale` -- a short string specifying the prevailing locale
-     * `setUserPreferredLocale` -- a short string specifying the prevailing locale
-     * `userNumbersShape` -- a short string specifying the prevailing locale
-     * `setUserNumbersShape` -- a short string specifying the prevailing locale
+     * `setDateformat` -- a function by which client code can change the prevailing dateformat: `stripes.dateformat('YYYY/MM/DD')` When you are in the `Arabic` interface.
+     * `userLocales` -- an array of objects specifying the locales list of the current logged in user.
+     * `setUserLocales` -- a function by which client code can change the prevailing userLocales: `stripes.setUserLocales([{...}, {...}, {...}])`.
+     * `userPreferredLocale` -- a short string specifying the prevailing user's preferred locale of the current logged in user, e.g. `en-US` or `ar-AR`.
+     * `setUserPreferredLocale` -- a function by which client code can change the current logged in user's preferred locale: `stripes.setUserPreferredLocale('en-US')`
+     * `userNumbersShape` -- a short string specifying the prevailing NumbersShape of the current logged in user, e.g. `Arabic` or `Hindu` When you are in the `Arabic` interface only.
+     * `setUserNumbersShape` -- a function by which client code can change the current logged in user's numbers shape: `stripes.setUserNumbersShape('en')` for the `Arabic` numbers shape and `stripes.setUserNumbersShape('ar')` for the `Hindu` numbers shape.
 
 
 ## Changes to existing modules
