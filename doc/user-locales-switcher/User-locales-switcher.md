@@ -13,6 +13,7 @@ This document explains the implementation  lays out requirements for settings an
 * [Language section in tenant-settings module](#language-section-in-tenant-settings-module)
     * [Tenant available locales](#tenant-available-locales)
     * [Tenant default locale](#tenant-default-locale)
+    * [Default date format for locales](#Default-date-format-for-locales)
 * [User language info section in user profile (Users App)](#user-language-info-section-in-user-profile-users-app)
 * [User Language Switcher in main navbar (Stripes-core)](#user-language-switcher-in-main-navbar-stripes-core)
 
@@ -33,10 +34,17 @@ This document explains the implementation  lays out requirements for settings an
 ## Changes to existing modules
 ![Changes_to_existing_modules‬](Changes_to_existing_modules.png "Changes_to_existing_modules‬")
 
-## Tenant available locales
-![Tenant_available_languages‬](Tenant_available_languages.png "Tenant_available_languages‬")
-
+## Language section in tenant-settings module
+   ## Tenant available locales
+   ![Tenant_available_languages‬](Tenant_available_languages.png "Tenant_available_languages‬")
+   
+   ## Tenant default locale
+   
+   ## Default date format for locales
+   
 ## User language info section in User Profile (Users App)
 
 ## User Language Switcher in main navbar (Stripes-core)
+
+![FOLIO_Language_Switcher_scenarios‬](FOLIO_Language_Switcher_scenarios.png "FOLIO_Language_Switcher_scenarios")
 
