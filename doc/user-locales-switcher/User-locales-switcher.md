@@ -1,7 +1,7 @@
 
 # User Locales Switcher
 
-This document explains the implementation  lays out requirements for settings and preferences, as discussed in [UIP-1](https://issues.folio.org/browse/UIP-1), and proposes how Stripes should support them. These concepts are similar but distinct, and properly supporting both will require changes to the Stripes core.
+This document explains the implementation and archticher of "User Locales Switcher" module including back-end service.
 
 
 ## Table of contents
@@ -9,6 +9,7 @@ This document explains the implementation  lays out requirements for settings an
 * [Introduction](#introduction)
 * [Implementation](#implementation)
 * [Adding new back-end module](#adding-new-back-end-module)
+* [Adding new elements to the Stripes object](#adding-new-elements-to-the-stripes-object)
 * [Changes to existing modules](#changes-to-existing-modules)
 * [Language section in tenant-settings module](#language-section-in-tenant-settings-module)
     * [Tenant available locales](#tenant-available-locales)
@@ -30,6 +31,22 @@ This document explains the implementation  lays out requirements for settings an
 ![FOLIO_Login_locale_scenarios‬](FOLIO_Login_locale_scenarios.png "FOLIO_Login_locale_scenarios")
 
 ## Adding new back-end module
+
+## Adding new elements to the Stripes object
+   * We add the following elements to the Stripes object:<br />
+     * `tenantLocales` -- an array of objects determines the locales available to the tenant.
+     * `setTenantLocales` -- a function by which client code can change the locales available to the tenant.
+     * `tenantDefaultLocale` -- a short string specifying the prevailing default locale for the tenant, e.g. `en-US`.
+     * `setTenantDefaultLocale` -- a function by which client code can change the prevailing `tenantDefaultLocale`: `stripes.setTenantDefaultLocale('en-US')`.
+     * `dateformat` -- a short string specifying the prevailing date format for the current locale, e.g. `MM-DD-YYYY` When you are in the `English - United States` interface.
+     * `setDateformat` -- a function by which client code can change the prevailing `dateformat`: `stripes.dateformat('YYYY/MM/DD')` When you are in the `Arabic` interface.
+     * `userLocales` -- a short string specifying the prevailing locale
+     * `setUserLocales` -- a short string specifying the prevailing locale
+     * `userPreferredLocale` -- a short string specifying the prevailing locale
+     * `setUserPreferredLocale` -- a short string specifying the prevailing locale
+     * `userNumbersShape` -- a short string specifying the prevailing locale
+     * `setUserNumbersShape` -- a short string specifying the prevailing locale
+
 
 ## Changes to existing modules
 ![Changes_to_existing_modules‬](Changes_to_existing_modules.png "Changes_to_existing_modules‬")
