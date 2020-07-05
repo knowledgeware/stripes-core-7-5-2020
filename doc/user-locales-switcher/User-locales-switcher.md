@@ -74,6 +74,29 @@ This document explains the implementation and structure of the "User Locales Swi
 
 ## Language section in tenant-settings module
    ## Tenant available locales
+   User Locales Switcher supported the following locales:
+  ```
+  { id: '1', name: 'Arabic', value: 'ar-AR', defaultDateFormat: 'YYYY/MM/DD' },
+  { id: '2', name: 'English - United States', value: 'en-US', defaultDateFormat: 'MM/DD/YYYY' },
+  { id: '3', name: 'English - Great Britain', value: 'en-GB', defaultDateFormat: 'DD/MM/YYYY' },
+  { id: '4', name: 'English - Sweden', value: 'en-SE', defaultDateFormat: 'DD/MM/YYYY' },
+  { id: '5', name: 'German - Germany', value: 'de-DE', defaultDateFormat: 'DD/MM/YYYY' },
+  { id: '6', name: 'Italian - Italy', value: 'it-IT', defaultDateFormat: 'DD/MM/YYYY' },
+  { id: '7', name: 'Spanish', value: 'es', defaultDateFormat: 'DD/MM/YYYY' },
+  { id: '8', name: 'Spanish - Latin America', value: 'es-419', defaultDateFormat: 'DD/MM/YYYY' },
+  { id: '9', name: 'Spanish - Spain', value: 'es-ES', defaultDateFormat: 'DD/MM/YYYY' },
+  { id: '10', name: 'Portuguese - Brazil', value: 'pt-BR', defaultDateFormat: 'DD/MM/YYYY' },
+  { id: '11', name: 'Portuguese - Portugal', value: 'pt-PT', defaultDateFormat: 'DD/MM/YYYY' },
+  { id: '12', name: 'Danish', value: 'da-DK', defaultDateFormat: 'DD-MM-YYYY' },
+  { id: '13', name: 'Hungarian', value: 'hu-HU', defaultDateFormat: 'YYYY-MM-DD' },
+  { id: '14', name: 'Chinese Simplified', value: 'zh-CN', defaultDateFormat: 'MM/DD/YYYY' },
+  { id: '15', name: 'Chinese Traditional', value: 'zh-TW', defaultDateFormat: 'MM/DD/YYYY' },
+  { id: '16', name: 'French - France', value: 'fr-FR', defaultDateFormat: 'DD/MM/YYYY' },
+  { id: '17', name: 'Hebrew', value: 'he', defaultDateFormat: 'DD/MM/YYYY' },
+  { id: '18', name: 'Japanese', value: 'ja', defaultDateFormat: 'MM/DD/YYYY' },
+  { id: '19', name: 'Russian', value: 'ru', defaultDateFormat: 'DD/MM/YYYY' },
+  { id: '20', name: 'Urdu', value: 'ur', defaultDateFormat: 'DD/MM/YYYY' }
+  ```
    
    ## Tenant default locale
    
