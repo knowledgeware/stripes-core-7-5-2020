@@ -75,6 +75,28 @@ This document explains the implementation and structure of the "User Locales Swi
 ## Language section in tenant-settings module
    ## Tenant available locales
    User Locales Switcher supported the following locales:
+   |  name                         |     Value     | Default Date Format |
+   | ------------------------------|---------------|---------------------|
+   | Arabic                        | ar-AR         | YYYY/MM/DD          |
+   | English - United States       | en-US         | MM-DD-YYYY          |
+   | English - Great Britain       | en-GB         | DD/MM/YYYY          |
+   | English - Sweden              | en-SE         | DD/MM/YYYY          |
+   | German - Germany              | de-DE         | DD/MM/YYYY          |
+   | Italian - Italy               | it-IT         | DD/MM/YYYY          |
+   | Spanish                       | es            | DD/MM/YYYY          |
+   | Spanish - Latin America       | es-419        | DD/MM/YYYY          |
+   | Spanish - Spain               | es-ES         | DD/MM/YYYY          |
+   | Portuguese - Brazil           | pt-BR         | DD/MM/YYYY          |
+   | Portuguese - Portugal         | pt-PT         | DD/MM/YYYY          |
+   | Danish                        | da-DK         | MM-DD-YYYY          |
+   | Hungarian                     | hu-HU         | YYYY-MM-DD          |
+   | Chinese Simplified            | zh-CN         | MM/DD/YYYY          |
+   | Chinese Traditional           | zh-TW         | MM/DD/YYYY          |
+   | French - France               | fr-FR         | MM-DD-YYYY          |
+   | Japanese                      | ja            | MM/DD/YYYY          |
+   | Russian                       | ru            | MM-DD-YYYY          |
+   | Hebrew                        | he            | MM-DD-YYYY          |
+   | Urdu                          | ur            | DD/MM/YYYY          |
   ```
   { id: '1', name: 'Arabic', value: 'ar-AR', defaultDateFormat: 'YYYY/MM/DD' },
   { id: '2', name: 'English - United States', value: 'en-US', defaultDateFormat: 'MM/DD/YYYY' },
