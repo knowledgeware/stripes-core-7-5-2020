@@ -38,6 +38,8 @@ This document explains the implementation and structure of the "User Locales Swi
   3- The end user chooses the list of locales he wants to navigate from among the locales available to the tenant and chooses his preferred locale.<br />
   4- Handling the login process in order to log in the user's preferred language if it exists, otherwise the user is login with the default language for the tenant.<br />
   5- Adding language switcher dropdown menue in the `Main Navbar`.
+  
+  ![User_locales_switcher_Implementation_Plan‬](User_locales_switcher_Implementation_Plan.png "User_locales_switcher_Implementation_Plan‬")
 
 ## Changes to existing modules
 ![Changes_to_existing_modules‬](Changes_to_existing_modules.png "Changes_to_existing_modules‬")
