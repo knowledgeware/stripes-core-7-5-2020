@@ -31,14 +31,18 @@ This document explains the implementation and structure of the "User Locales Swi
 
 ## Introduction
 
-## Implementation Plan:
+## Implementation Plan
   * User locales switcher has five axes:<br />
   1-[Adding new back-end module](#adding-new-back-end-module) called [mod-user-locales](https://github.com/attia-alshareef/mod-user-locales) for handling the server side work needed.<br />
   2- The system administrator chooses the locales available to the tenant and choose the default locale for the tenant of them.<br />
   3- The end user chooses the list of locales he wants to navigate from among the locales available to the tenant and chooses his preferred locale.<br />
   4- Handling the login process in order to log in the user's preferred language if it exists, otherwise the user is login with the default language for the tenant.<br />
   5- Adding language switcher dropdown menue in the `Main Navbar`.
-  
+
+## Changes to existing modules
+![Changes_to_existing_modules‬](Changes_to_existing_modules.png "Changes_to_existing_modules‬")
+
+
 ## Adding new back-end module
 [mod-user-locales](https://github.com/attia-alshareef/mod-user-locales) is a FOLIO back-end module to manage and handling the server side work needed by "User Locales Switcher" operations which controls the tenant and user locales.
 
@@ -65,10 +69,6 @@ This document explains the implementation and structure of the "User Locales Swi
      * `setUserPreferredLocale` -- a function by which client code can change the current logged in user's preferred locale: `stripes.setUserPreferredLocale('en-US')`
      * `userNumbersShape` -- a short string specifying the prevailing NumbersShape of the current logged in user, e.g. `Arabic` or `Hindu` When you are in the `Arabic` interface only.
      * `setUserNumbersShape` -- a function by which client code can change the current logged in user's numbers shape: `stripes.setUserNumbersShape('en')` for the `Arabic` numbers shape and `stripes.setUserNumbersShape('ar')` for the `Hindu` numbers shape.
-
-
-## Changes to existing modules
-![Changes_to_existing_modules‬](Changes_to_existing_modules.png "Changes_to_existing_modules‬")
 
 ## Language section in tenant-settings module
    ## Tenant available locales
