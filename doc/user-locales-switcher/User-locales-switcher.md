@@ -7,9 +7,9 @@ This document explains the implementation and structure of the "User Locales Swi
 
 * [Introduction](#introduction)
 * [Implementation Plan](#implementation-plan)
+* [Changes to existing modules](#changes-to-existing-modules)
 * [Adding new back-end module](#adding-new-back-end-module)
 * [Adding new elements to the Stripes object](#adding-new-elements-to-the-stripes-object)
-* [Changes to existing modules](#changes-to-existing-modules)
 * [Language section in tenant-settings module](#language-section-in-tenant-settings-module)
     * [Tenant available locales](#tenant-available-locales)
     * [Tenant default locale](#tenant-default-locale)
