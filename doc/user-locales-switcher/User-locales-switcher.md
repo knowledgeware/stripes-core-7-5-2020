@@ -45,18 +45,6 @@ This document explains the implementation and structure of the "User Locales Swi
 ![Changes_to_existing_modules‬](Changes_to_existing_modules.png "Changes_to_existing_modules‬")
 
 
-## Adding new back-end module
-[mod-user-locales](https://github.com/attia-alshareef/mod-user-locales) is a FOLIO back-end module to manage and handling the server side work needed by "User Locales Switcher" operations which controls the tenant and user locales.
-
-**ModuleDescriptor: https://github.com/attia-alshareef/mod-user-locales/blob/master/descriptors/ModuleDescriptor-template.json 
-
-![mod_user_locales_entity_relationship_diagram‬](mod_user_locales_entity_relationship_diagram.png "mod_user_locales_entity_relationship_diagram")
-
-[mod-user-locales](https://github.com/attia-alshareef/mod-user-locales) contains the following resources:<br />
-   * `Locale` -- make a CRUD operations for the tenant available locales including the default date format for locales.
-   * `User-Locale` -- make a CRUD operations for the user locales including user's preferred locale and user's numbers shape for the `Arabic` interface.
-   
-
 ## Adding new elements to the Stripes object
    * We add the following elements to the Stripes object:<br />
      * `tenantLocales` -- an array of objects specifying the locales available to the tenant.
@@ -71,6 +59,19 @@ This document explains the implementation and structure of the "User Locales Swi
      * `setUserPreferredLocale` -- a function by which client code can change the current logged in user's preferred locale: `stripes.setUserPreferredLocale('en-US')`
      * `userNumbersShape` -- a short string specifying the prevailing NumbersShape of the current logged in user, e.g. `Arabic` or `Hindu` When you are in the `Arabic` interface only.
      * `setUserNumbersShape` -- a function by which client code can change the current logged in user's numbers shape: `stripes.setUserNumbersShape('en')` for the `Arabic` numbers shape and `stripes.setUserNumbersShape('ar')` for the `Hindu` numbers shape.
+     
+
+## Adding new back-end module
+[mod-user-locales](https://github.com/attia-alshareef/mod-user-locales) is a FOLIO back-end module to manage and handling the server side work needed by "User Locales Switcher" operations which controls the tenant and user locales.
+
+**ModuleDescriptor: https://github.com/attia-alshareef/mod-user-locales/blob/master/descriptors/ModuleDescriptor-template.json 
+
+![mod_user_locales_entity_relationship_diagram‬](mod_user_locales_entity_relationship_diagram.png "mod_user_locales_entity_relationship_diagram")
+
+[mod-user-locales](https://github.com/attia-alshareef/mod-user-locales) contains the following resources:<br />
+   * `Locale` -- make a CRUD operations for the tenant available locales including the default date format for locales.
+   * `User-Locale` -- make a CRUD operations for the user locales including user's preferred locale and user's numbers shape for the `Arabic` interface.
+   
 
 ## Language section in tenant-settings module
    ## Tenant available locales
