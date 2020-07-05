@@ -6,7 +6,7 @@ This document explains the implementation and structure of the "User Locales Swi
 ## Table of contents
 
 * [Introduction](#introduction)
-* [Implementation](#implementation)
+* [Implementation Plan](#implementation-plan)
 * [Adding new back-end module](#adding-new-back-end-module)
 * [Adding new elements to the Stripes object](#adding-new-elements-to-the-stripes-object)
 * [Changes to existing modules](#changes-to-existing-modules)
@@ -31,7 +31,7 @@ This document explains the implementation and structure of the "User Locales Swi
 
 ## Introduction
 
-## Implementation
+## Implementation Plan:
   * User locales switcher has five axes:<br />
   1-[Adding new back-end module](#adding-new-back-end-module) called [mod-user-locales](https://github.com/attia-alshareef/mod-user-locales) for handling the server side work needed.<br />
   2- The system administrator chooses the locales available to the tenant and choose the default locale for the tenant of them.<br />
